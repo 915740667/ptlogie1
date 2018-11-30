@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ptlogie.mapper.EquipmentMapper" >
+  <resultMap id="BaseResultMap" type="com.ptlogie.domain.Equipment" >
+    <id column="equipmentId" property="equipmentid" jdbcType="INTEGER" />
+    <result column="sceneId" property="sceneid" jdbcType="INTEGER" />
+    <result column="errorId" property="errorid" jdbcType="INTEGER" />
+    <result column="equipmentType" property="equipmenttype" jdbcType="INTEGER" />
+    <result column="equipmentName" property="equipmentname" jdbcType="VARCHAR" />
+    <result column="snno" property="snno" jdbcType="VARCHAR" />
+    <result column="macno" property="macno" jdbcType="VARCHAR" />
+    <result column="workStatus" property="workstatus" jdbcType="INTEGER" />
+    <result column="eletric" property="eletric" jdbcType="REAL" />
+    <result column="alarmStatus" property="alarmstatus" jdbcType="INTEGER" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    equipmentId, sceneId, errorId, equipmentType, equipmentName, snno, macno, workStatus, 
+    eletric, alarmStatus, createTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ptlogie.domain.EquipmentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from equipment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from equipment
+    where equipmentId = #{equipmentid,jdbcType=INTEGER}
+  </select>
+  <!-- 分页查询 -->
+    <select id="findByPage" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from equipment
+    where 1=1 
+    limit ${startObj},${pageSize}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from equipment
+    where equipmentId = #{equipmentid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ptlogie.domain.EquipmentExample" >
+    delete from equipment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ptlogie.domain.Equipment" >
+    insert into equipment (equipmentId, sceneId, errorId, 
+      equipmentType, equipmentName, snno, 
+      macno, workStatus, eletric, 
+      alarmStatus, createTime)
+    values (#{equipmentid,jdbcType=INTEGER}, #{sceneid,jdbcType=INTEGER}, #{errorid,jdbcType=INTEGER}, 
+      #{equipmenttype,jdbcType=INTEGER}, #{equipmentname,jdbcType=VARCHAR}, #{snno,jdbcType=VARCHAR}, 
+      #{macno,jdbcType=VARCHAR}, #{workstatus,jdbcType=INTEGER}, #{eletric,jdbcType=REAL}, 
+      #{alarmstatus,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ptlogie.domain.Equipment" >
+    insert into equipment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="equipmentid != null" >
+        equipmentId,
+      </if>
+      <if test="sceneid != null" >
+        sceneId,
+      </if>
+      <if test="errorid != null" >
+        errorId,
+      </if>
+      <if test="equipmenttype != null" >
+        equipmentType,
+      </if>
+      <if test="equipmentname != null" >
+        equipmentName,
+      </if>
+      <if test="snno != null" >
+        snno,
+      </if>
+      <if test="macno != null" >
+        macno,
+      </if>
+      <if test="workstatus != null" >
+        workStatus,
+      </if>
+      <if test="eletric != null" >
+        eletric,
+      </if>
+      <if test="alarmstatus != null" >
+        alarmStatus,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="equipmentid != null" >
+        #{equipmentid,jdbcType=INTEGER},
+      </if>
+      <if test="sceneid != null" >
+        #{sceneid,jdbcType=INTEGER},
+      </if>
+      <if test="errorid != null" >
+        #{errorid,jdbcType=INTEGER},
+      </if>
+      <if test="equipmenttype != null" >
+        #{equipmenttype,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentname != null" >
+        #{equipmentname,jdbcType=VARCHAR},
+      </if>
+      <if test="snno != null" >
+        #{snno,jdbcType=VARCHAR},
+      </if>
+      <if test="macno != null" >
+        #{macno,jdbcType=VARCHAR},
+      </if>
+      <if test="workstatus != null" >
+        #{workstatus,jdbcType=INTEGER},
+      </if>
+      <if test="eletric != null" >
+        #{eletric,jdbcType=REAL},
+      </if>
+      <if test="alarmstatus != null" >
+        #{alarmstatus,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ptlogie.domain.EquipmentExample" resultType="java.lang.Integer" >
+    select count(*) from equipment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update equipment
+    <set >
+      <if test="record.equipmentid != null" >
+        equipmentId = #{record.equipmentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.sceneid != null" >
+        sceneId = #{record.sceneid,jdbcType=INTEGER},
+      </if>
+      <if test="record.errorid != null" >
+        errorId = #{record.errorid,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmenttype != null" >
+        equipmentType = #{record.equipmenttype,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmentname != null" >
+        equipmentName = #{record.equipmentname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.snno != null" >
+        snno = #{record.snno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.macno != null" >
+        macno = #{record.macno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workstatus != null" >
+        workStatus = #{record.workstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.eletric != null" >
+        eletric = #{record.eletric,jdbcType=REAL},
+      </if>
+      <if test="record.alarmstatus != null" >
+        alarmStatus = #{record.alarmstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null" >
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update equipment
+    set equipmentId = #{record.equipmentid,jdbcType=INTEGER},
+      sceneId = #{record.sceneid,jdbcType=INTEGER},
+      errorId = #{record.errorid,jdbcType=INTEGER},
+      equipmentType = #{record.equipmenttype,jdbcType=INTEGER},
+      equipmentName = #{record.equipmentname,jdbcType=VARCHAR},
+      snno = #{record.snno,jdbcType=VARCHAR},
+      macno = #{record.macno,jdbcType=VARCHAR},
+      workStatus = #{record.workstatus,jdbcType=INTEGER},
+      eletric = #{record.eletric,jdbcType=REAL},
+      alarmStatus = #{record.alarmstatus,jdbcType=INTEGER},
+      createTime = #{record.createtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ptlogie.domain.Equipment" >
+    update equipment
+    <set >
+      <if test="sceneid != null" >
+        sceneId = #{sceneid,jdbcType=INTEGER},
+      </if>
+      <if test="errorid != null" >
+        errorId = #{errorid,jdbcType=INTEGER},
+      </if>
+      <if test="equipmenttype != null" >
+        equipmentType = #{equipmenttype,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentname != null" >
+        equipmentName = #{equipmentname,jdbcType=VARCHAR},
+      </if>
+      <if test="snno != null" >
+        snno = #{snno,jdbcType=VARCHAR},
+      </if>
+      <if test="macno != null" >
+        macno = #{macno,jdbcType=VARCHAR},
+      </if>
+      <if test="workstatus != null" >
+        workStatus = #{workstatus,jdbcType=INTEGER},
+      </if>
+      <if test="eletric != null" >
+        eletric = #{eletric,jdbcType=REAL},
+      </if>
+      <if test="alarmstatus != null" >
+        alarmStatus = #{alarmstatus,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where equipmentId = #{equipmentid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ptlogie.domain.Equipment" >
+    update equipment
+    set sceneId = #{sceneid,jdbcType=INTEGER},
+      errorId = #{errorid,jdbcType=INTEGER},
+      equipmentType = #{equipmenttype,jdbcType=INTEGER},
+      equipmentName = #{equipmentname,jdbcType=VARCHAR},
+      snno = #{snno,jdbcType=VARCHAR},
+      macno = #{macno,jdbcType=VARCHAR},
+      workStatus = #{workstatus,jdbcType=INTEGER},
+      eletric = #{eletric,jdbcType=REAL},
+      alarmStatus = #{alarmstatus,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP}
+    where equipmentId = #{equipmentid,jdbcType=INTEGER}
+  </update>
+</mapper>
