@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	
+	
+		<!--属性资源定位器：加载数据库属性文件 -->
+	<context:property-placeholder location="classpath:db.properties" />
+	<context:property-placeholder location="classpath:log4j.properties" />
+
+	<!-- 先配置dbcp的连接池 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>	
+	
+		  <!-- 定义事务 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+		<!-- 配置SqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 配置mybatis核心配置文件 -->
+		<property name="configLocation" value="classpath:SqlMapConfig.xml" />
+		<!-- 配置数据源 -->
+		<property name="dataSource" ref="dataSource" />
+		 <!-- 别名 -->
+        <property name="typeAliasesPackage" value="com.ptlogie.domain"></property>
+		 <!-- sql映射文件路径 -->
+        <property name="mapperLocations" value="classpath*:com.ptlogie.mapper/*Mapper.xml"></property>
+	</bean>
+	<bean class="com.ptlogie.domain.Page" id ="page"></bean>
+	   <!--4 自动扫描对象关系映射 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--指定会话工厂，如果当前上下文中只定义了一个则该属性可省去 -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+        <!-- 指定要自动扫描接口的基础包，实现接口 -->
+        <property name="basePackage" value="com.ptlogie.mapper"></property>
+    </bean>
+	
+	<!-- 开启事务的注解 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!--设置spring容器的扫描范围，扫描类包，将标注Spring注解的类自动转化Bean，同时完成Bean的注入 -->
+	<context:component-scan base-package="com.ptlogie" />
+	<!--开起注解方式的springmvc -->
+	<mvc:annotation-driven />
+	<!--让spring前端控制器跳过静态的资源请求 location路径, /resources/**这个文件夹下所有资源全部跳过 -->
+		<mvc:default-servlet-handler />
+	 <mvc:resources location="/static/" mapping="/static/**"/> 
+ 	 <mvc:resources location="/js/" mapping="/js/**"/>  
+ 	 <mvc:resources location="/css/" mapping="/css/**"/>
+ 	 <mvc:resources location="/fonts/" mapping="/fonts/**"/>
+
+    <!-- 自定义拦截链配置 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/*/*"/>
+    <bean class="com.ptlogie.intercepter.loginIntercepter">
+     
+    </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+	<!--配置视图解析器，将ModelAndView及字符串解析为具体的页面 -->
+		<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/page/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<!--文件上传下载专用的视图解析器CommonsMultipartResolver -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxInMemorySize" value="10240" /> <!-- 最大内存大小 (10240) -->
+		<property name="maxUploadSize" value="-1" /> <!-- 最大文件大小，-1为无限止(-1) -->
+	</bean>
+	
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+

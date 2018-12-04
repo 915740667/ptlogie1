@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <script type="text/javascript">
+    $(function(){
+      mSelect();
+      mCheckbox();
+      mSwitch();
+    })
+
+  </script>
+</head>
+<body>
+  <div class="page">
+    <!-- 头部 -->
+    <div class="m-head">
+      <div class="logo">
+        <a><img src="static/logo.png"></a>
+        <h1>馆藏文物保存环境监控分析平台</h1>
+      </div>
+      <div class="info">
+        <div class="setting">
+          <a>
+          </a>
+        </div>
+        <div class="user">
+          <div>
+            <img src="">
+          </div>
+          <a>Admin</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 标题 -->
+    <div class="m-title">
+      <i style="background-image: url(static/title-1.png);"></i>
+      <a>系统告警统计</a>
+      <div>111</div>
+    </div>
+
+    <!-- 标题2 -->
+    <div class="m-title-2">
+      <a>7天告警数统计数据</a>
+    </div>
+
+    <!-- 标题3 -->
+    <div class="m-title-3">
+      <a>控制规则</a>
+      <div></div>
+    </div>
+
+    <!-- 表格 -->
+    <div class="m-table">
+      <table>
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>区域名称</th>
+            <th>设备名称</th>
+            <th>数据内容</th>
+            <th>工作状态</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>01</td>
+            <td>区域名称</td>
+            <td>设备名称</td>
+            <td>数据内容</td>
+            <td class="red">断电</td>
+            <td>
+              <a class="edit"><span>编辑</span></a>
+              <a class="delete"><span>删除</span></a>
+            </td>
+          </tr>
+          <tr>
+            <td>01</td>
+            <td>区域名称</td>
+            <td>设备名称</td>
+            <td>数据内容</td>
+            <td class="green">正常</td>
+            <td>
+              <a class="edit"><span>编辑</span></a>
+              <a class="delete"><span>删除</span></a>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 分页 -->
+    <div class="m-paging">
+      <div>
+        <a class="prev">上一页</a>
+        <a class="active">1</a>
+        <a>2</a>
+        <a>3</a>
+        <a>4</a>
+        <a>5</a>
+        <span>...</span>
+        <a>15</a>
+        <a class="next">下一页</a>
+      </div>
+    </div>
+
+    <!-- 搜索框 -->
+    <div class="m-search">
+      <i></i>
+      <input type="text" name="" placeholder="请输入区域名称">
+      <button>查询</button>
+    </div>
+
+    <!-- 弹出框 -->
+    <div class="m-popup">
+      <div class="hd">
+        <span>编辑</span>
+        <a class="close"></a>
+      </div>
+      <div class="bd"></div>
+      <div class="ft">
+        <button class="cancel">取消</button>
+        <button class="confirm">确认</button>
+      </div>
+    </div>
+    <!-- 输入框 -->
+    <div class="m-input">
+      <span>区域名称：</span>
+      <label>
+        <input type="text" name="" placeholder="请输入区域名称">
+      </label>
+    </div>
+
+    <!-- 文本框 -->
+    <div class="m-textarea">
+      <span>备注信息：</span>
+      <label>
+        <textarea placeholder="请输入备注内容"></textarea>
+      </label>
+    </div>
+
+    <!-- 选择框 -->
+    <div class="m-select">
+      <span>选择区域：</span>
+      <label>
+        <div>请选择</div>
+        <ul>
+          <li>选项一</li>
+          <li>选项二</li>
+          <li>选项三</li>
+          <li>选项四</li>
+          <li>选项五</li>
+          <li>选项三</li>
+          <li>选项四</li>
+          <li>选项五</li>
+        </ul>
+        <input type="hidden" name="">
+      </label>
+    </div>
+
+    <!-- 区间框 -->
+    <div class="m-double-select">
+      <span>温度区间：</span>
+      <label><input type="text" name="" placeholder="初始"></label>
+      <i></i>
+      <label><input type="text" name="" placeholder="末尾"></label>
+    </div>
+
+    <!-- 开关 -->
+    <div class="m-switch">
+      <span>入侵告警：</span>
+      <label> 
+        <div>
+          <a>OFF</a>
+        </div>
+        <input type="hidden" name="">
+      </label>
+    </div>
+
+    <!-- 多选框 -->
+    <div class="m-checkbox">
+      <span>监控类型：</span>
+      <div>
+        <a class="selected"><input type="checkbox" name=""><span>温湿度监控</span></a>
+        <a><input type="checkbox" name=""><span>水温预警</span></a>
+        <a><input type="checkbox" name=""><span>湿度预警</span></a>
+      </div>
+    </div>
+
+    <!-- 面包屑 -->
+    <div class="m-bread">
+      <p>首页 > 区域管理</p>
+    </div>
+
+    <!-- 图标按钮 -->
+    <button class='m-icon-btn add'>
+      <i></i>
+      <span>增加</span>
+    </button>
+
+    <!-- 醒目文字 -->
+    <div class="m-marked-title">
+      <div>
+        <span>温湿度规则</span>
+      </div>
+    </div>
+  </div>
+  <div class="sky-bg" id="particles-js"></div>
+  <script src="js/particles.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
