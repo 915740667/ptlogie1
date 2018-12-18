@@ -77,9 +77,34 @@
 			return false;
 		}
 
-	/* 	saveUserInfo(); */
-		form1.action = "${webPath}/loginUser/userLogin.do";
-		form1.submit();
+ 		saveUserInfo(); 
+	/* 	form1.action = "${webPath}/loginUser/userLogin";
+		form1.submit(); */
+		console.log(loginid)
+		$.ajax({
+		    url:"${webPath}/loginUser/userLogin",//请求地址
+		    data:{loginName:loginid,password:password},//提交的数据
+		    type:"POST",//提交的方式
+		    dataType:"TEXT", //返回类型 TEXT字符串 JSON XML
+		    success:function(data){
+		   //开始之前要去空格，用trim()
+		   console.log(data);
+		     if(data=="ERROR")
+		      {
+		    	  $("#password_errors").html("用户名或密码错误");
+		      }
+		      if(data=="OK")
+		      {
+		    	  $("#password_errors").html("");
+		        window.location.href = "${webPath}/loginUser/toMain";
+		      }
+		      if(data=="PERMISSIONDEND")
+		      {
+		    	  $("#password_errors").html("权限不够");
+		      }
+		    
+		    }
+		  })
 	};
 </script>
 <body class="login_body">

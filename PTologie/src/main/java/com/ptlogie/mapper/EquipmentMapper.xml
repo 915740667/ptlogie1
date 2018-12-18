@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ptlogie.mapper.EquipmentMapper" >
+  <resultMap id="BaseResultMap" type="com.ptlogie.domain.Equipment" >
+    <id column="equipmentId" property="equipmentid" jdbcType="INTEGER" />
+    <result column="sceneId" property="sceneid" jdbcType="INTEGER" />
+    <result column="equipmentType" property="equipmenttype" jdbcType="INTEGER" />
+    <result column="equipmentName" property="equipmentname" jdbcType="VARCHAR" />
+    <result column="snno" property="snno" jdbcType="VARCHAR" />
+    <result column="macno" property="macno" jdbcType="VARCHAR" />
+    <result column="workstatus" property="workstatus" jdbcType="INTEGER" />
+    <result column="electric" property="electric" jdbcType="REAL" />
+    <result column="alarmstatus" property="alarmstatus" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="period" property="period" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="hostName" property="hostname" jdbcType="VARCHAR" />
+    <result column="gps" property="gps" jdbcType="VARCHAR" />
+    <result column="chipSn" property="chipsn" jdbcType="VARCHAR" />
+    <result column="HttpSrvUrl" property="httpsrvurl" jdbcType="VARCHAR" />
+    <result column="WebsocketSrvUrl" property="websocketsrvurl" jdbcType="VARCHAR" />
+    <result column="WirelessChannel" property="wirelesschannel" jdbcType="VARCHAR" />
+    <result column="HardwareUpdateDir" property="hardwareupdatedir" jdbcType="VARCHAR" />
+    <result column="ReportCycle" property="reportcycle" jdbcType="VARCHAR" />
+    <result column="DeviceInterval" property="deviceinterval" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    equipmentId, sceneId, equipmentType, equipmentName, snno, macno, workstatus, electric, 
+    alarmstatus, createtime, period, content, hostName, gps, chipSn, HttpSrvUrl, WebsocketSrvUrl, 
+    WirelessChannel, HardwareUpdateDir, ReportCycle, DeviceInterval
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ptlogie.domain.EquipmentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from equipment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from equipment
+    where equipmentId = #{equipmentid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from equipment
+    where equipmentId = #{equipmentid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ptlogie.domain.EquipmentExample" >
+    delete from equipment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ptlogie.domain.Equipment" >
+    insert into equipment (equipmentId, sceneId, equipmentType, 
+      equipmentName, snno, macno, 
+      workstatus, electric, alarmstatus, 
+      createtime, period, content, 
+      hostName, gps, chipSn, 
+      HttpSrvUrl, WebsocketSrvUrl, WirelessChannel, 
+      HardwareUpdateDir, ReportCycle, DeviceInterval
+      )
+    values (#{equipmentid,jdbcType=INTEGER}, #{sceneid,jdbcType=INTEGER}, #{equipmenttype,jdbcType=INTEGER}, 
+      #{equipmentname,jdbcType=VARCHAR}, #{snno,jdbcType=VARCHAR}, #{macno,jdbcType=VARCHAR}, 
+      #{workstatus,jdbcType=INTEGER}, #{electric,jdbcType=REAL}, #{alarmstatus,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{period,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{hostname,jdbcType=VARCHAR}, #{gps,jdbcType=VARCHAR}, #{chipsn,jdbcType=VARCHAR}, 
+      #{httpsrvurl,jdbcType=VARCHAR}, #{websocketsrvurl,jdbcType=VARCHAR}, #{wirelesschannel,jdbcType=VARCHAR}, 
+      #{hardwareupdatedir,jdbcType=VARCHAR}, #{reportcycle,jdbcType=VARCHAR}, #{deviceinterval,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ptlogie.domain.Equipment" >
+    insert into equipment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="equipmentid != null" >
+        equipmentId,
+      </if>
+      <if test="sceneid != null" >
+        sceneId,
+      </if>
+      <if test="equipmenttype != null" >
+        equipmentType,
+      </if>
+      <if test="equipmentname != null" >
+        equipmentName,
+      </if>
+      <if test="snno != null" >
+        snno,
+      </if>
+      <if test="macno != null" >
+        macno,
+      </if>
+      <if test="workstatus != null" >
+        workstatus,
+      </if>
+      <if test="electric != null" >
+        electric,
+      </if>
+      <if test="alarmstatus != null" >
+        alarmstatus,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="period != null" >
+        period,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="hostname != null" >
+        hostName,
+      </if>
+      <if test="gps != null" >
+        gps,
+      </if>
+      <if test="chipsn != null" >
+        chipSn,
+      </if>
+      <if test="httpsrvurl != null" >
+        HttpSrvUrl,
+      </if>
+      <if test="websocketsrvurl != null" >
+        WebsocketSrvUrl,
+      </if>
+      <if test="wirelesschannel != null" >
+        WirelessChannel,
+      </if>
+      <if test="hardwareupdatedir != null" >
+        HardwareUpdateDir,
+      </if>
+      <if test="reportcycle != null" >
+        ReportCycle,
+      </if>
+      <if test="deviceinterval != null" >
+        DeviceInterval,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="equipmentid != null" >
+        #{equipmentid,jdbcType=INTEGER},
+      </if>
+      <if test="sceneid != null" >
+        #{sceneid,jdbcType=INTEGER},
+      </if>
+      <if test="equipmenttype != null" >
+        #{equipmenttype,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentname != null" >
+        #{equipmentname,jdbcType=VARCHAR},
+      </if>
+      <if test="snno != null" >
+        #{snno,jdbcType=VARCHAR},
+      </if>
+      <if test="macno != null" >
+        #{macno,jdbcType=VARCHAR},
+      </if>
+      <if test="workstatus != null" >
+        #{workstatus,jdbcType=INTEGER},
+      </if>
+      <if test="electric != null" >
+        #{electric,jdbcType=REAL},
+      </if>
+      <if test="alarmstatus != null" >
+        #{alarmstatus,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="hostname != null" >
+        #{hostname,jdbcType=VARCHAR},
+      </if>
+      <if test="gps != null" >
+        #{gps,jdbcType=VARCHAR},
+      </if>
+      <if test="chipsn != null" >
+        #{chipsn,jdbcType=VARCHAR},
+      </if>
+      <if test="httpsrvurl != null" >
+        #{httpsrvurl,jdbcType=VARCHAR},
+      </if>
+      <if test="websocketsrvurl != null" >
+        #{websocketsrvurl,jdbcType=VARCHAR},
+      </if>
+      <if test="wirelesschannel != null" >
+        #{wirelesschannel,jdbcType=VARCHAR},
+      </if>
+      <if test="hardwareupdatedir != null" >
+        #{hardwareupdatedir,jdbcType=VARCHAR},
+      </if>
+      <if test="reportcycle != null" >
+        #{reportcycle,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceinterval != null" >
+        #{deviceinterval,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ptlogie.domain.EquipmentExample" resultType="java.lang.Integer" >
+    select count(*) from equipment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update equipment
+    <set >
+      <if test="record.equipmentid != null" >
+        equipmentId = #{record.equipmentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.sceneid != null" >
+        sceneId = #{record.sceneid,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmenttype != null" >
+        equipmentType = #{record.equipmenttype,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmentname != null" >
+        equipmentName = #{record.equipmentname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.snno != null" >
+        snno = #{record.snno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.macno != null" >
+        macno = #{record.macno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workstatus != null" >
+        workstatus = #{record.workstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.electric != null" >
+        electric = #{record.electric,jdbcType=REAL},
+      </if>
+      <if test="record.alarmstatus != null" >
+        alarmstatus = #{record.alarmstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.period != null" >
+        period = #{record.period,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hostname != null" >
+        hostName = #{record.hostname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gps != null" >
+        gps = #{record.gps,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chipsn != null" >
+        chipSn = #{record.chipsn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.httpsrvurl != null" >
+        HttpSrvUrl = #{record.httpsrvurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.websocketsrvurl != null" >
+        WebsocketSrvUrl = #{record.websocketsrvurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wirelesschannel != null" >
+        WirelessChannel = #{record.wirelesschannel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hardwareupdatedir != null" >
+        HardwareUpdateDir = #{record.hardwareupdatedir,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reportcycle != null" >
+        ReportCycle = #{record.reportcycle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceinterval != null" >
+        DeviceInterval = #{record.deviceinterval,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update equipment
+    set equipmentId = #{record.equipmentid,jdbcType=INTEGER},
+      sceneId = #{record.sceneid,jdbcType=INTEGER},
+      equipmentType = #{record.equipmenttype,jdbcType=INTEGER},
+      equipmentName = #{record.equipmentname,jdbcType=VARCHAR},
+      snno = #{record.snno,jdbcType=VARCHAR},
+      macno = #{record.macno,jdbcType=VARCHAR},
+      workstatus = #{record.workstatus,jdbcType=INTEGER},
+      electric = #{record.electric,jdbcType=REAL},
+      alarmstatus = #{record.alarmstatus,jdbcType=INTEGER},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      period = #{record.period,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      hostName = #{record.hostname,jdbcType=VARCHAR},
+      gps = #{record.gps,jdbcType=VARCHAR},
+      chipSn = #{record.chipsn,jdbcType=VARCHAR},
+      HttpSrvUrl = #{record.httpsrvurl,jdbcType=VARCHAR},
+      WebsocketSrvUrl = #{record.websocketsrvurl,jdbcType=VARCHAR},
+      WirelessChannel = #{record.wirelesschannel,jdbcType=VARCHAR},
+      HardwareUpdateDir = #{record.hardwareupdatedir,jdbcType=VARCHAR},
+      ReportCycle = #{record.reportcycle,jdbcType=VARCHAR},
+      DeviceInterval = #{record.deviceinterval,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ptlogie.domain.Equipment" >
+    update equipment
+    <set >
+      <if test="sceneid != null" >
+        sceneId = #{sceneid,jdbcType=INTEGER},
+      </if>
+      <if test="equipmenttype != null" >
+        equipmentType = #{equipmenttype,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentname != null" >
+        equipmentName = #{equipmentname,jdbcType=VARCHAR},
+      </if>
+      <if test="snno != null" >
+        snno = #{snno,jdbcType=VARCHAR},
+      </if>
+      <if test="macno != null" >
+        macno = #{macno,jdbcType=VARCHAR},
+      </if>
+      <if test="workstatus != null" >
+        workstatus = #{workstatus,jdbcType=INTEGER},
+      </if>
+      <if test="electric != null" >
+        electric = #{electric,jdbcType=REAL},
+      </if>
+      <if test="alarmstatus != null" >
+        alarmstatus = #{alarmstatus,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="period != null" >
+        period = #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="hostname != null" >
+        hostName = #{hostname,jdbcType=VARCHAR},
+      </if>
+      <if test="gps != null" >
+        gps = #{gps,jdbcType=VARCHAR},
+      </if>
+      <if test="chipsn != null" >
+        chipSn = #{chipsn,jdbcType=VARCHAR},
+      </if>
+      <if test="httpsrvurl != null" >
+        HttpSrvUrl = #{httpsrvurl,jdbcType=VARCHAR},
+      </if>
+      <if test="websocketsrvurl != null" >
+        WebsocketSrvUrl = #{websocketsrvurl,jdbcType=VARCHAR},
+      </if>
+      <if test="wirelesschannel != null" >
+        WirelessChannel = #{wirelesschannel,jdbcType=VARCHAR},
+      </if>
+      <if test="hardwareupdatedir != null" >
+        HardwareUpdateDir = #{hardwareupdatedir,jdbcType=VARCHAR},
+      </if>
+      <if test="reportcycle != null" >
+        ReportCycle = #{reportcycle,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceinterval != null" >
+        DeviceInterval = #{deviceinterval,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where equipmentId = #{equipmentid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ptlogie.domain.Equipment" >
+    update equipment
+    set sceneId = #{sceneid,jdbcType=INTEGER},
+      equipmentType = #{equipmenttype,jdbcType=INTEGER},
+      equipmentName = #{equipmentname,jdbcType=VARCHAR},
+      snno = #{snno,jdbcType=VARCHAR},
+      macno = #{macno,jdbcType=VARCHAR},
+      workstatus = #{workstatus,jdbcType=INTEGER},
+      electric = #{electric,jdbcType=REAL},
+      alarmstatus = #{alarmstatus,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      period = #{period,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      hostName = #{hostname,jdbcType=VARCHAR},
+      gps = #{gps,jdbcType=VARCHAR},
+      chipSn = #{chipsn,jdbcType=VARCHAR},
+      HttpSrvUrl = #{httpsrvurl,jdbcType=VARCHAR},
+      WebsocketSrvUrl = #{websocketsrvurl,jdbcType=VARCHAR},
+      WirelessChannel = #{wirelesschannel,jdbcType=VARCHAR},
+      HardwareUpdateDir = #{hardwareupdatedir,jdbcType=VARCHAR},
+      ReportCycle = #{reportcycle,jdbcType=VARCHAR},
+      DeviceInterval = #{deviceinterval,jdbcType=VARCHAR}
+    where equipmentId = #{equipmentid,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+       <select id="findOnline" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from equipment
+    where workstatus = 1
+  </select>
+  
+   <!-- 分页查询 -->
+    <select id="findByPage" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from equipment
+    where 1=1 
+  order by equipmentId desc    limit ${startObj},${pageSize} ;
+  </select>
+    <select id="findDeviceList" resultMap="BaseResultMap" parameterType="java.util.Map">
+     select 
+    <include refid="Base_Column_List" />
+    from equipment
+    where 
+    equipmentType in
+   <foreach collection="param.type"  item="item"  index="index" open="(" close=")" separator=",">
+	 #{item}
+	</foreach>
+    <if test="param.condition != null  " >
+   and     equipmentName like '%${param.condition}%' 
+    </if>
+  order by equipmentId desc 
+  <if test="param.start != null  " >
+        limit #{param.start}
+    </if>
+   <if test="param.start != null  " >
+        ,#{param.pageSize} ;
+    </if>
+  </select>
+</mapper>

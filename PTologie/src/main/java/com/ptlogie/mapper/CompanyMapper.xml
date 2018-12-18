@@ -2,11 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ptlogie.mapper.CompanyMapper" >
   <resultMap id="BaseResultMap" type="com.ptlogie.domain.Company" >
-    <id column="company_id" property="companyId" jdbcType="INTEGER" />
-    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
-    <result column="company_address" property="companyAddress" jdbcType="VARCHAR" />
-    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
-    <result column="companyType" property="companytype" jdbcType="VARCHAR" />
+    <id column="companyId" property="companyid" jdbcType="INTEGER" />
+    <result column="companyName" property="companyname" jdbcType="VARCHAR" />
+    <result column="adress" property="adress" jdbcType="VARCHAR" />
+    <result column="bussinessPhone" property="bussinessphone" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="website" property="website" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    company_id, company_name, company_address, parent_id, companyType
+    companyId, companyName, adress, bussinessPhone, phone, email, website
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ptlogie.domain.CompanyExample" >
     select
@@ -87,11 +89,11 @@
     select 
     <include refid="Base_Column_List" />
     from company
-    where company_id = #{companyId,jdbcType=INTEGER}
+    where companyId = #{companyid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from company
-    where company_id = #{companyId,jdbcType=INTEGER}
+    where companyId = #{companyid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.ptlogie.domain.CompanyExample" >
     delete from company
@@ -100,45 +102,59 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ptlogie.domain.Company" >
-    insert into company (company_id, company_name, company_address, 
-      parent_id, companyType)
-    values (#{companyId,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{companyAddress,jdbcType=VARCHAR}, 
-      #{parentId,jdbcType=INTEGER}, #{companytype,jdbcType=VARCHAR})
+    insert into company (companyId, companyName, adress, 
+      bussinessPhone, phone, email, 
+      website)
+    values (#{companyid,jdbcType=INTEGER}, #{companyname,jdbcType=VARCHAR}, #{adress,jdbcType=VARCHAR}, 
+      #{bussinessphone,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{website,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ptlogie.domain.Company" >
     insert into company
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="companyId != null" >
-        company_id,
+      <if test="companyid != null" >
+        companyId,
       </if>
-      <if test="companyName != null" >
-        company_name,
+      <if test="companyname != null" >
+        companyName,
       </if>
-      <if test="companyAddress != null" >
-        company_address,
+      <if test="adress != null" >
+        adress,
       </if>
-      <if test="parentId != null" >
-        parent_id,
+      <if test="bussinessphone != null" >
+        bussinessPhone,
       </if>
-      <if test="companytype != null" >
-        companyType,
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="website != null" >
+        website,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="companyId != null" >
-        #{companyId,jdbcType=INTEGER},
+      <if test="companyid != null" >
+        #{companyid,jdbcType=INTEGER},
       </if>
-      <if test="companyName != null" >
-        #{companyName,jdbcType=VARCHAR},
+      <if test="companyname != null" >
+        #{companyname,jdbcType=VARCHAR},
       </if>
-      <if test="companyAddress != null" >
-        #{companyAddress,jdbcType=VARCHAR},
+      <if test="adress != null" >
+        #{adress,jdbcType=VARCHAR},
       </if>
-      <if test="parentId != null" >
-        #{parentId,jdbcType=INTEGER},
+      <if test="bussinessphone != null" >
+        #{bussinessphone,jdbcType=VARCHAR},
       </if>
-      <if test="companytype != null" >
-        #{companytype,jdbcType=VARCHAR},
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null" >
+        #{website,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -151,20 +167,26 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update company
     <set >
-      <if test="record.companyId != null" >
-        company_id = #{record.companyId,jdbcType=INTEGER},
+      <if test="record.companyid != null" >
+        companyId = #{record.companyid,jdbcType=INTEGER},
       </if>
-      <if test="record.companyName != null" >
-        company_name = #{record.companyName,jdbcType=VARCHAR},
+      <if test="record.companyname != null" >
+        companyName = #{record.companyname,jdbcType=VARCHAR},
       </if>
-      <if test="record.companyAddress != null" >
-        company_address = #{record.companyAddress,jdbcType=VARCHAR},
+      <if test="record.adress != null" >
+        adress = #{record.adress,jdbcType=VARCHAR},
       </if>
-      <if test="record.parentId != null" >
-        parent_id = #{record.parentId,jdbcType=INTEGER},
+      <if test="record.bussinessphone != null" >
+        bussinessPhone = #{record.bussinessphone,jdbcType=VARCHAR},
       </if>
-      <if test="record.companytype != null" >
-        companyType = #{record.companytype,jdbcType=VARCHAR},
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.website != null" >
+        website = #{record.website,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -173,11 +195,13 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update company
-    set company_id = #{record.companyId,jdbcType=INTEGER},
-      company_name = #{record.companyName,jdbcType=VARCHAR},
-      company_address = #{record.companyAddress,jdbcType=VARCHAR},
-      parent_id = #{record.parentId,jdbcType=INTEGER},
-      companyType = #{record.companytype,jdbcType=VARCHAR}
+    set companyId = #{record.companyid,jdbcType=INTEGER},
+      companyName = #{record.companyname,jdbcType=VARCHAR},
+      adress = #{record.adress,jdbcType=VARCHAR},
+      bussinessPhone = #{record.bussinessphone,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      website = #{record.website,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -185,27 +209,35 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.ptlogie.domain.Company" >
     update company
     <set >
-      <if test="companyName != null" >
-        company_name = #{companyName,jdbcType=VARCHAR},
+      <if test="companyname != null" >
+        companyName = #{companyname,jdbcType=VARCHAR},
       </if>
-      <if test="companyAddress != null" >
-        company_address = #{companyAddress,jdbcType=VARCHAR},
+      <if test="adress != null" >
+        adress = #{adress,jdbcType=VARCHAR},
       </if>
-      <if test="parentId != null" >
-        parent_id = #{parentId,jdbcType=INTEGER},
+      <if test="bussinessphone != null" >
+        bussinessPhone = #{bussinessphone,jdbcType=VARCHAR},
       </if>
-      <if test="companytype != null" >
-        companyType = #{companytype,jdbcType=VARCHAR},
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null" >
+        website = #{website,jdbcType=VARCHAR},
       </if>
     </set>
-    where company_id = #{companyId,jdbcType=INTEGER}
+    where companyId = #{companyid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ptlogie.domain.Company" >
     update company
-    set company_name = #{companyName,jdbcType=VARCHAR},
-      company_address = #{companyAddress,jdbcType=VARCHAR},
-      parent_id = #{parentId,jdbcType=INTEGER},
-      companyType = #{companytype,jdbcType=VARCHAR}
-    where company_id = #{companyId,jdbcType=INTEGER}
+    set companyName = #{companyname,jdbcType=VARCHAR},
+      adress = #{adress,jdbcType=VARCHAR},
+      bussinessPhone = #{bussinessphone,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      website = #{website,jdbcType=VARCHAR}
+    where companyId = #{companyid,jdbcType=INTEGER}
   </update>
 </mapper>

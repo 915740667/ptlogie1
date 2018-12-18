@@ -6,14 +6,17 @@ function mSelect(){
       $(this).parents("label").addClass("active")
     }
   })
-  $(".m-select label > ul li").click(function(){
+ $(".m-select label > ul li").click(function(){
     var content = $(this).text();
+    var val1=$(this).val();
     $(this).parents("label").children("div").css("color","#fff");
     $(this).parents("label").children("div").text(content);
-    $(this).parents("label").children("input").val(content);
+    $(this).parents("label").children("input").val(val1);
     $(this).parents("label").removeClass("active");
   })
 }
+
+
 
 function mCheckbox(){
   $(".m-checkbox a").click(function(){

@@ -11,10 +11,69 @@
   <script type="text/javascript" src="js/common.js"></script>
   <script type="text/javascript">
     $(function(){
+    
+   	 $.ajax({
+	        url: "${webPath}/error/init",
+	        type: "POST",
+	        dataType: "JSON",
+	        success: function(data) {
+	        	//初始化页面参数 返回各个设备列表和设备个数
+	            var str = "";
+	            var Lists=data.dataList
+	             for(var k in Lists) {
+		            str += "<tr><td>" + Lists[k].userid + "</td><td>" + Lists[k].username + "</td><td>" + Lists[k].loginname + "</td><td>" 
+		            + Lists[k].phone + "</td><td>" +Lists[k].email + "</td><td>" 
+		             +Lists[k].userstatus + "</td><td>  <a class='delete'><span>删除</span></a>" +"</td></tr>";
+		          }  
+	            $("#nr1").html(str);
+	           
+	    	     $('#page1').jqPaginator({
+		                totalPages: data.page,
+		                visiblePages: data.pageNum,
+		                currentPage: 1,
+		                first: '<a class="first" href="javascript:void(0);">首页</a>',
+		                prev: '<a class="prev" href="javascript:void(0);">上一页</a>',
+		                next: '<a  class="next" href="javascript:void(0);">下一页</a>',
+		                last: '<a class="last" href="javascript:void(0);">末页</a>',
+		                page: '<a class="page" href="javascript:void(0);">{{page}}</a>',
+		                onPageChange: function (num) {
+		                	findPage1(num);
+		                }
+		            });
+	        }
+	    });
     	
-    	//加载数据
-    	
-    	
+ 	 $.ajax({
+	        url: "${webPath}/rule/init",
+	        type: "POST",
+	        dataType: "JSON",
+	        success: function(data) {
+	        	//初始化页面参数 返回各个设备列表和设备个数
+	            var str = "";
+	            var Lists=data.dataList
+	             for(var k in Lists) {
+		            str += "<tr><td>" + Lists[k].userid + "</td><td>" + Lists[k].username + "</td><td>" + Lists[k].loginname + "</td><td>" 
+		            + Lists[k].phone + "</td><td>" +Lists[k].email + "</td><td>" 
+		             +Lists[k].userstatus + "</td><td>  <a class='delete'><span>删除</span></a>" +"</td></tr>";
+		          }  
+	            $("#nr2").html(str);
+	            
+	            $('#page2').jqPaginator({
+	                totalPages: data.page,
+	                visiblePages: data.pageNum,
+	                currentPage: 1,
+	                first: '<a class="first" href="javascript:void(0);">首页</a>',
+	                prev: '<a class="prev" href="javascript:void(0);">上一页</a>',
+	                next: '<a  class="next" href="javascript:void(0);">下一页</a>',
+	                last: '<a class="last" href="javascript:void(0);">末页</a>',
+	                page: '<a class="page" href="javascript:void(0);">{{page}}</a>',
+	                onPageChange: function (num) {
+	                	findPage2(num);
+	                }
+	            });
+	        }
+	    });
+   	 
     	
       mSelect();
       mSwitch();
@@ -27,43 +86,158 @@
       })
     })
     
-    function main(){
-    	window.location.href="${webPath}/loginUser/toMain.do";
+  function findPage1(d1){
+    	$.ajax({
+	        url: "${webPath}/error/findErrorList",
+	        data: {
+	        	pageNum: d1,
+	        },
+	        type: "POST",
+	        dataType: "JSON",
+	        success: function(data) {
+	            var str = "";
+	            var Lists=data.dataList
+	             for(var k in Lists) {
+	            	   str += "<tr><td>" + Lists[k].userid + "</td><td>" + Lists[k].username + "</td><td>" + Lists[k].loginname + "</td><td>" 
+	  		            + Lists[k].phone + "</td><td>" +Lists[k].email + "</td><td>" 
+	  		             +Lists[k].userstatus + "</td><td>  <a class='delete'><span>删除</span></a>" +"</td></tr>";
+ 	  		          }  
+	            $("#nr1").html(str);
+	        }
+	    });
     }
     
     
-    function searcnAlarm(){
-    	
-    	form1.action="${webPath}/alarm/searcnAlarm.do";
-    	form1.submit();
-    };
+    function findPage2(d1){
+    	$.ajax({
+	        url: "${webPath}/rule/findRuleList",
+	        data: {
+	        	pageNum: d1,
+	        },
+	        type: "POST",
+	        dataType: "JSON",
+	        success: function(data) {
+	            var str = "";
+	            var Lists=data.dataList
+	             for(var k in Lists) {
+	            	   str += "<tr><td>" + Lists[k].userid + "</td><td>" + Lists[k].username + "</td><td>" + Lists[k].loginname + "</td><td>" 
+	  		            + Lists[k].phone + "</td><td>" +Lists[k].email + "</td><td>" 
+	  		             +Lists[k].userstatus + "</td><td>  <a class='delete'><span>删除</span></a>" +"</td></tr>";
+ 	  		          }  
+	            $("#nr2").html(str);
+	        }
+	    });
+    }
+    
+    function queryRule(){
+    	var condition=  document.getElementById("queryRule").value;
+    	$.ajax({
+            url: "${webPath}/rule/findRuleList",
+            data: {
+            	pageNum: 1,
+            	condition:condition
+            },
+            type: "POST",
+            dataType: "JSON",
+            success: function(data) {
+                var str = "";
+                var Lists=data.dataList
+                
+                 for(var k in Lists) {
+                	 str += "<tr><td>" + Lists[k].userid + "</td><td>" + Lists[k].username + "</td><td>" + Lists[k].loginname + "</td><td>" 
+	  		            + Lists[k].phone + "</td><td>" +Lists[k].email + "</td><td>" 
+	  		             +Lists[k].userstatus + "</td><td>  <a class='delete'><span>删除</span></a>" +"</td></tr>";
+                }  
+                $("#nr1").html(str);
+          
+                $('#page').jqPaginator({
+	                totalPages: data.page,
+	                visiblePages: data.pageNum,
+	                currentPage: 1,
+	                first: '<a class="first" href="javascript:void(0);">首页</a>',
+	                prev: '<a class="prev" href="javascript:void(0);">上一页</a>',
+	                next: '<a  class="next" href="javascript:void(0);">下一页</a>',
+	                last: '<a class="last" href="javascript:void(0);">末页</a>',
+	                page: '<a class="page" href="javascript:void(0);">{{page}}</a>',
+	                onPageChange: function (num) {
+	                	findPage1(num);
+	                }
+	            });
+            }
+        });
+    }
+    
+    function queryError(){
+    	var condition=  document.getElementById("queryError").value;
+    	$.ajax({
+            url: "${webPath}/error/findErrorList",
+            data: {
+            	pageNum: 1,
+            	condition:condition
+            },
+            type: "POST",
+            dataType: "JSON",
+            success: function(data) {
+            	//初始化页面参数 返回各个设备列表和设备个数
+	            var str = "";
+	            var Lists=data.dataList
+	             for(var k in Lists) {
+		            str += "<tr><td>" + Lists[k].userid + "</td><td>" + Lists[k].username + "</td><td>" + Lists[k].loginname + "</td><td>" 
+		            + Lists[k].phone + "</td><td>" +Lists[k].email + "</td><td>" 
+		             +Lists[k].userstatus + "</td><td>  <a class='delete'><span>删除</span></a>" +"</td></tr>";
+		          }  
+	            $("#nr2").html(str);
+	            
+	            $('#page2').jqPaginator({
+	                totalPages: data.page,
+	                visiblePages: data.pageNum,
+	                currentPage: 1,
+	                first: '<a class="first" href="javascript:void(0);">首页</a>',
+	                prev: '<a class="prev" href="javascript:void(0);">上一页</a>',
+	                next: '<a  class="next" href="javascript:void(0);">下一页</a>',
+	                last: '<a class="last" href="javascript:void(0);">末页</a>',
+	                page: '<a class="page" href="javascript:void(0);">{{page}}</a>',
+	                onPageChange: function (num) {
+	                	findPage2(num);
+	                }
+	            });
+            }
+        });
+    }
+    
+    
+    
+
   </script>
 </head>
 <body>
   <div class="page mgt-alarm">
+ 	<div>
+  <!--include是静态引入  jsp:include是动态引入 -->
   <%@ include file="header.jsp" %>
-  </div>
+<%--   <jsp:include page="header.jsp" flush="true" /> --%>
+    </div>
     <div class="m-bread">
     <style>
 		p{padding:0px; margin:0px;display: inline;}
 	</style>
 
-     <a href="javascript:void(0);" onclick="main()"><p>首页</p></a>   <a href="#"><p>>>告警与控制管理 </p></a> 
+     <a href="javascript:void(0);" onclick="main()"><p>首页</p></a><p> /</p>  <a href="#"><p>告警与控制管理 </p></a> 
    
     </div>
     <div class="box-1">
       <div class="m-title">
-        <i style="background-image: url(static/title-2.png);"></i>
+        <i style="background-image: url(../static/title-2.png);"></i>
         <a>报警信息</a>
         <div></div>
       </div>
       <div class="control-bar">
         <div class="m-search">
           <i></i>
-          <form id="form1" name="form1">
-           <input type="text" name="areaName" placeholder="请输入区域名称">
+       
+           <input type="text" name="areaName"  id ="queryError" placeholder="请输入区域名称">
           <button onclick="searcnAlarm()">查询</button>
-          </form>
+        
          
         </div>
       </div>
@@ -80,127 +254,26 @@
               <th>报警联系人</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>01</td>
-              <td>区域名称区域名称1</td>
-              <td>温度报警</td>
-              <td>2018-10-15   10:29</td>
-              <td>温度监控1号设备</td>
-              <td>23.8℃</td>
-              <td>张筱雨</td>
-            </tr>
-            <tr>
-              <td>02</td>
-              <td>区域名称区域名称1</td>
-              <td>温度报警</td>
-              <td>2018-10-15   10:29</td>
-              <td>温度监控1号设备</td>
-              <td>23.8℃</td>
-              <td>张筱雨</td>
-            </tr>
-            <tr>
-              <td>03</td>
-              <td>区域名称区域名称1</td>
-              <td>温度报警</td>
-              <td>2018-10-15   10:29</td>
-              <td>温度监控1号设备</td>
-              <td>23.8℃</td>
-              <td>张筱雨</td>
-            </tr>
-            <tr>
-              <td>04</td>
-              <td>区域名称区域名称1</td>
-              <td>温度报警</td>
-              <td>2018-10-15   10:29</td>
-              <td>温度监控1号设备</td>
-              <td>23.8℃</td>
-              <td>张筱雨</td>
-            </tr>
-            <tr>
-              <td>05</td>
-              <td>区域名称区域名称1</td>
-              <td>温度报警</td>
-              <td>2018-10-15   10:29</td>
-              <td>温度监控1号设备</td>
-              <td>23.8℃</td>
-              <td>张筱雨</td>
-            </tr>
-            <tr>
-              <td>06</td>
-              <td>区域名称区域名称1</td>
-              <td>温度报警</td>
-              <td>2018-10-15   10:29</td>
-              <td>温度监控1号设备</td>
-              <td>23.8℃</td>
-              <td>张筱雨</td>
-            </tr>
-            <tr>
-              <td>07</td>
-              <td>区域名称区域名称1</td>
-              <td>温度报警</td>
-              <td>2018-10-15   10:29</td>
-              <td>温度监控1号设备</td>
-              <td>23.8℃</td>
-              <td>张筱雨</td>
-            </tr>
-            <tr>
-              <td>08</td>
-              <td>区域名称区域名称1</td>
-              <td>温度报警</td>
-              <td>2018-10-15   10:29</td>
-              <td>温度监控1号设备</td>
-              <td>23.8℃</td>
-              <td>张筱雨</td>
-            </tr>
-            <tr>
-              <td>09</td>
-              <td>区域名称区域名称1</td>
-              <td>温度报警</td>
-              <td>2018-10-15   10:29</td>
-              <td>温度监控1号设备</td>
-              <td>23.8℃</td>
-              <td>张筱雨</td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>区域名称区域名称1</td>
-              <td>温度报警</td>
-              <td>2018-10-15   10:29</td>
-              <td>温度监控1号设备</td>
-              <td>23.8℃</td>
-              <td>张筱雨</td>
-            </tr>
+          <tbody id="nr1">
+        
           </tbody>
         </table>
       </div>
-      <div class="m-paging">
-        <div>
-          <a class="prev">上一页</a>
-          <a class="active">1</a>
-          <a>2</a>
-          <a>3</a>
-          <a>4</a>
-          <a>5</a>
-          <span>...</span>
-          <a>15</a>
-          <a class="next">下一页</a>
+         <div class="m-paging">
+        <div id="page1"></div>
         </div>
-      </div>
     </div>
     <div class="box-1">
       <div class="m-title">
-        <i style="background-image: url(static/title-2.png);"></i>
+        <i style="background-image: url(../static/title-2.png);"></i>
         <a>规则设置</a>
         <div></div>
       </div>
       <div class="control-bar">
         <div class="m-search">
           <i></i>
-           <form id="form2">
-          <input type="text" name="areaName" placeholder="请输入区域名称">
+          <input type="text" name="areaName" id="queryRule" placeholder="请输入区域名称">
           <button  onclick="searchRule()">查询</button>
-          </form>
         </div>
         <button class='m-icon-btn add'>
           <i></i>
@@ -219,133 +292,15 @@
               <th>操作</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>01</td>
-              <td>区域名称区域名称1</td>
-              <td>告警规则告警规则</td>
-              <td>控制规则控制规则</td>
-              <td>张筱雨</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>02</td>
-              <td>区域名称区域名称1</td>
-              <td>告警规则告警规则</td>
-              <td>控制规则控制规则</td>
-              <td>张筱雨</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>03</td>
-              <td>区域名称区域名称1</td>
-              <td>告警规则告警规则</td>
-              <td>控制规则控制规则</td>
-              <td>张筱雨</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>04</td>
-              <td>区域名称区域名称1</td>
-              <td>告警规则告警规则</td>
-              <td>控制规则控制规则</td>
-              <td>张筱雨</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>05</td>
-              <td>区域名称区域名称1</td>
-              <td>告警规则告警规则</td>
-              <td>控制规则控制规则</td>
-              <td>张筱雨</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>06</td>
-              <td>区域名称区域名称1</td>
-              <td>告警规则告警规则</td>
-              <td>控制规则控制规则</td>
-              <td>张筱雨</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>07</td>
-              <td>区域名称区域名称1</td>
-              <td>告警规则告警规则</td>
-              <td>控制规则控制规则</td>
-              <td>张筱雨</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>08</td>
-              <td>区域名称区域名称1</td>
-              <td>告警规则告警规则</td>
-              <td>控制规则控制规则</td>
-              <td>张筱雨</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>09</td>
-              <td>区域名称区域名称1</td>
-              <td>告警规则告警规则</td>
-              <td>控制规则控制规则</td>
-              <td>张筱雨</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>区域名称区域名称1</td>
-              <td>告警规则告警规则</td>
-              <td>控制规则控制规则</td>
-              <td>张筱雨</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
+          <tbody id="nr2">
+         
+   
           </tbody>
         </table>
       </div>
-      <div class="m-paging">
-        <div>
-          <a class="prev">上一页</a>
-          <a class="active">1</a>
-          <a>2</a>
-          <a>3</a>
-          <a>4</a>
-          <a>5</a>
-          <span>...</span>
-          <a>15</a>
-          <a class="next">下一页</a>
+          <div class="m-paging">
+        <div id="page2"></div>
         </div>
-      </div>
     </div>
     <div id="p1" class="m-popup-bg popup-1">
       <div class="m-popup">
@@ -548,9 +503,9 @@
         </div>
       </div>
     </div>
+     <%@ include file="userPWD.jsp" %>
   </div>
   <div class="sky-bg" id="particles-js"></div>
-  <script src="js/particles.min.js"></script>
-  <script src="js/app.js"></script>
+ 
 </body>
 </html>

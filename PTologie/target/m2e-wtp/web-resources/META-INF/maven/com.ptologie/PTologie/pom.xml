@@ -36,8 +36,9 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-			
-			<dependency>
+	
+		
+		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.9</version>
@@ -101,10 +102,23 @@
 		</dependency>
 		<!-- 日志处理 -->
 		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.9</version>
 		</dependency>
+		
+		
+<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>fastjson</artifactId>
+    <version>1.2.4</version>
+</dependency>
 		<!-- JUnit是一个Java语言的单元测试框架 -->
 		<dependency>
 			<groupId>junit</groupId>

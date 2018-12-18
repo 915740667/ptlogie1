@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ptlogie.mapper.RuleMapper" >
+  <resultMap id="BaseResultMap" type="com.ptlogie.domain.Rule" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="equipmentId" property="equipmentid" jdbcType="INTEGER" />
+    <result column="highTemperature" property="hightemperature" jdbcType="REAL" />
+    <result column="lowTemperature" property="lowtemperature" jdbcType="REAL" />
+    <result column="highHumidity" property="highhumidity" jdbcType="REAL" />
+    <result column="lowHumidity" property="lowhumidity" jdbcType="REAL" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="sceneId" property="sceneid" jdbcType="INTEGER" />
+    <result column="alarmLowtemp" property="alarmlowtemp" jdbcType="REAL" />
+    <result column="alarmHighTemp" property="alarmhightemp" jdbcType="REAL" />
+    <result column="alarmLowhumi" property="alarmlowhumi" jdbcType="REAL" />
+    <result column="alarmHighhumi" property="alarmhighhumi" jdbcType="REAL" />
+    <result column="linkManName" property="linkmanname" jdbcType="VARCHAR" />
+    <result column="agressiveAlarm" property="agressivealarm" jdbcType="INTEGER" />
+    <result column="fireAlarm" property="firealarm" jdbcType="INTEGER" />
+    <result column="waterAlarm" property="wateralarm" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, equipmentId, highTemperature, lowTemperature, highHumidity, lowHumidity, updateTime, 
+    sceneId, alarmLowtemp, alarmHighTemp, alarmLowhumi, alarmHighhumi, linkManName, agressiveAlarm, 
+    fireAlarm, waterAlarm
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ptlogie.domain.RuleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from rule
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from rule
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ptlogie.domain.RuleExample" >
+    delete from rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ptlogie.domain.Rule" >
+    insert into rule (id, equipmentId, highTemperature, 
+      lowTemperature, highHumidity, lowHumidity, 
+      updateTime, sceneId, alarmLowtemp, 
+      alarmHighTemp, alarmLowhumi, alarmHighhumi, 
+      linkManName, agressiveAlarm, fireAlarm, 
+      waterAlarm)
+    values (#{id,jdbcType=INTEGER}, #{equipmentid,jdbcType=INTEGER}, #{hightemperature,jdbcType=REAL}, 
+      #{lowtemperature,jdbcType=REAL}, #{highhumidity,jdbcType=REAL}, #{lowhumidity,jdbcType=REAL}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{sceneid,jdbcType=INTEGER}, #{alarmlowtemp,jdbcType=REAL}, 
+      #{alarmhightemp,jdbcType=REAL}, #{alarmlowhumi,jdbcType=REAL}, #{alarmhighhumi,jdbcType=REAL}, 
+      #{linkmanname,jdbcType=VARCHAR}, #{agressivealarm,jdbcType=INTEGER}, #{firealarm,jdbcType=INTEGER}, 
+      #{wateralarm,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ptlogie.domain.Rule" >
+    insert into rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="equipmentid != null" >
+        equipmentId,
+      </if>
+      <if test="hightemperature != null" >
+        highTemperature,
+      </if>
+      <if test="lowtemperature != null" >
+        lowTemperature,
+      </if>
+      <if test="highhumidity != null" >
+        highHumidity,
+      </if>
+      <if test="lowhumidity != null" >
+        lowHumidity,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+      <if test="sceneid != null" >
+        sceneId,
+      </if>
+      <if test="alarmlowtemp != null" >
+        alarmLowtemp,
+      </if>
+      <if test="alarmhightemp != null" >
+        alarmHighTemp,
+      </if>
+      <if test="alarmlowhumi != null" >
+        alarmLowhumi,
+      </if>
+      <if test="alarmhighhumi != null" >
+        alarmHighhumi,
+      </if>
+      <if test="linkmanname != null" >
+        linkManName,
+      </if>
+      <if test="agressivealarm != null" >
+        agressiveAlarm,
+      </if>
+      <if test="firealarm != null" >
+        fireAlarm,
+      </if>
+      <if test="wateralarm != null" >
+        waterAlarm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentid != null" >
+        #{equipmentid,jdbcType=INTEGER},
+      </if>
+      <if test="hightemperature != null" >
+        #{hightemperature,jdbcType=REAL},
+      </if>
+      <if test="lowtemperature != null" >
+        #{lowtemperature,jdbcType=REAL},
+      </if>
+      <if test="highhumidity != null" >
+        #{highhumidity,jdbcType=REAL},
+      </if>
+      <if test="lowhumidity != null" >
+        #{lowhumidity,jdbcType=REAL},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sceneid != null" >
+        #{sceneid,jdbcType=INTEGER},
+      </if>
+      <if test="alarmlowtemp != null" >
+        #{alarmlowtemp,jdbcType=REAL},
+      </if>
+      <if test="alarmhightemp != null" >
+        #{alarmhightemp,jdbcType=REAL},
+      </if>
+      <if test="alarmlowhumi != null" >
+        #{alarmlowhumi,jdbcType=REAL},
+      </if>
+      <if test="alarmhighhumi != null" >
+        #{alarmhighhumi,jdbcType=REAL},
+      </if>
+      <if test="linkmanname != null" >
+        #{linkmanname,jdbcType=VARCHAR},
+      </if>
+      <if test="agressivealarm != null" >
+        #{agressivealarm,jdbcType=INTEGER},
+      </if>
+      <if test="firealarm != null" >
+        #{firealarm,jdbcType=INTEGER},
+      </if>
+      <if test="wateralarm != null" >
+        #{wateralarm,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ptlogie.domain.RuleExample" resultType="java.lang.Integer" >
+    select count(*) from rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update rule
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmentid != null" >
+        equipmentId = #{record.equipmentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.hightemperature != null" >
+        highTemperature = #{record.hightemperature,jdbcType=REAL},
+      </if>
+      <if test="record.lowtemperature != null" >
+        lowTemperature = #{record.lowtemperature,jdbcType=REAL},
+      </if>
+      <if test="record.highhumidity != null" >
+        highHumidity = #{record.highhumidity,jdbcType=REAL},
+      </if>
+      <if test="record.lowhumidity != null" >
+        lowHumidity = #{record.lowhumidity,jdbcType=REAL},
+      </if>
+      <if test="record.updatetime != null" >
+        updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sceneid != null" >
+        sceneId = #{record.sceneid,jdbcType=INTEGER},
+      </if>
+      <if test="record.alarmlowtemp != null" >
+        alarmLowtemp = #{record.alarmlowtemp,jdbcType=REAL},
+      </if>
+      <if test="record.alarmhightemp != null" >
+        alarmHighTemp = #{record.alarmhightemp,jdbcType=REAL},
+      </if>
+      <if test="record.alarmlowhumi != null" >
+        alarmLowhumi = #{record.alarmlowhumi,jdbcType=REAL},
+      </if>
+      <if test="record.alarmhighhumi != null" >
+        alarmHighhumi = #{record.alarmhighhumi,jdbcType=REAL},
+      </if>
+      <if test="record.linkmanname != null" >
+        linkManName = #{record.linkmanname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agressivealarm != null" >
+        agressiveAlarm = #{record.agressivealarm,jdbcType=INTEGER},
+      </if>
+      <if test="record.firealarm != null" >
+        fireAlarm = #{record.firealarm,jdbcType=INTEGER},
+      </if>
+      <if test="record.wateralarm != null" >
+        waterAlarm = #{record.wateralarm,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update rule
+    set id = #{record.id,jdbcType=INTEGER},
+      equipmentId = #{record.equipmentid,jdbcType=INTEGER},
+      highTemperature = #{record.hightemperature,jdbcType=REAL},
+      lowTemperature = #{record.lowtemperature,jdbcType=REAL},
+      highHumidity = #{record.highhumidity,jdbcType=REAL},
+      lowHumidity = #{record.lowhumidity,jdbcType=REAL},
+      updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      sceneId = #{record.sceneid,jdbcType=INTEGER},
+      alarmLowtemp = #{record.alarmlowtemp,jdbcType=REAL},
+      alarmHighTemp = #{record.alarmhightemp,jdbcType=REAL},
+      alarmLowhumi = #{record.alarmlowhumi,jdbcType=REAL},
+      alarmHighhumi = #{record.alarmhighhumi,jdbcType=REAL},
+      linkManName = #{record.linkmanname,jdbcType=VARCHAR},
+      agressiveAlarm = #{record.agressivealarm,jdbcType=INTEGER},
+      fireAlarm = #{record.firealarm,jdbcType=INTEGER},
+      waterAlarm = #{record.wateralarm,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ptlogie.domain.Rule" >
+    update rule
+    <set >
+      <if test="equipmentid != null" >
+        equipmentId = #{equipmentid,jdbcType=INTEGER},
+      </if>
+      <if test="hightemperature != null" >
+        highTemperature = #{hightemperature,jdbcType=REAL},
+      </if>
+      <if test="lowtemperature != null" >
+        lowTemperature = #{lowtemperature,jdbcType=REAL},
+      </if>
+      <if test="highhumidity != null" >
+        highHumidity = #{highhumidity,jdbcType=REAL},
+      </if>
+      <if test="lowhumidity != null" >
+        lowHumidity = #{lowhumidity,jdbcType=REAL},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sceneid != null" >
+        sceneId = #{sceneid,jdbcType=INTEGER},
+      </if>
+      <if test="alarmlowtemp != null" >
+        alarmLowtemp = #{alarmlowtemp,jdbcType=REAL},
+      </if>
+      <if test="alarmhightemp != null" >
+        alarmHighTemp = #{alarmhightemp,jdbcType=REAL},
+      </if>
+      <if test="alarmlowhumi != null" >
+        alarmLowhumi = #{alarmlowhumi,jdbcType=REAL},
+      </if>
+      <if test="alarmhighhumi != null" >
+        alarmHighhumi = #{alarmhighhumi,jdbcType=REAL},
+      </if>
+      <if test="linkmanname != null" >
+        linkManName = #{linkmanname,jdbcType=VARCHAR},
+      </if>
+      <if test="agressivealarm != null" >
+        agressiveAlarm = #{agressivealarm,jdbcType=INTEGER},
+      </if>
+      <if test="firealarm != null" >
+        fireAlarm = #{firealarm,jdbcType=INTEGER},
+      </if>
+      <if test="wateralarm != null" >
+        waterAlarm = #{wateralarm,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ptlogie.domain.Rule" >
+    update rule
+    set equipmentId = #{equipmentid,jdbcType=INTEGER},
+      highTemperature = #{hightemperature,jdbcType=REAL},
+      lowTemperature = #{lowtemperature,jdbcType=REAL},
+      highHumidity = #{highhumidity,jdbcType=REAL},
+      lowHumidity = #{lowhumidity,jdbcType=REAL},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      sceneId = #{sceneid,jdbcType=INTEGER},
+      alarmLowtemp = #{alarmlowtemp,jdbcType=REAL},
+      alarmHighTemp = #{alarmhightemp,jdbcType=REAL},
+      alarmLowhumi = #{alarmlowhumi,jdbcType=REAL},
+      alarmHighhumi = #{alarmhighhumi,jdbcType=REAL},
+      linkManName = #{linkmanname,jdbcType=VARCHAR},
+      agressiveAlarm = #{agressivealarm,jdbcType=INTEGER},
+      fireAlarm = #{firealarm,jdbcType=INTEGER},
+      waterAlarm = #{wateralarm,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

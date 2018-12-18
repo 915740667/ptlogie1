@@ -11,6 +11,39 @@
   <script type="text/javascript" src="js/common.js"></script>
   <script type="text/javascript">
     $(function(){
+    
+    	 $.ajax({
+		        url: "${webPath}/user/init",
+		        type: "POST",
+		        dataType: "JSON",
+		        success: function(data) {
+		        	//初始化页面参数 返回各个设备列表和设备个数
+		            var str = "";
+		            var Lists=data.dataList
+		             for(var k in Lists) {
+	  		            str += "<tr><td>" + Lists[k].userid + "</td><td>" + Lists[k].username + "</td><td>" + Lists[k].loginname + "</td><td>" 
+	  		            + Lists[k].phone + "</td><td>" +Lists[k].email + "</td><td>" 
+	  		             +Lists[k].userstatus + "</td><td>  <a class='delete'><span>删除</span></a>" +"</td></tr>";
+	  		          }  
+		            $("#nr1").html(str);
+		            
+		            $('#page').jqPaginator({
+		                totalPages: data.page,
+		                visiblePages: data.pageNum,
+		                currentPage: 1,
+		                first: '<a class="first" href="javascript:void(0);">首页</a>',
+		                prev: '<a class="prev" href="javascript:void(0);">上一页</a>',
+		                next: '<a  class="next" href="javascript:void(0);">下一页</a>',
+		                last: '<a class="last" href="javascript:void(0);">末页</a>',
+		                page: '<a class="page" href="javascript:void(0);">{{page}}</a>',
+		                onPageChange: function (num) {
+		                	findPage1(num);
+		                }
+		            });
+		        }
+		    });
+    	
+    	
       mPopup();
       mSelect();
       mCheckbox();
@@ -21,26 +54,92 @@
         $("#p1").show();
       })
     })
+    
+    
+      function findPage1(d1){
+    	$.ajax({
+	        url: "${webPath}/user/finduserList",
+	        data: {
+	        	pageNum: d1,
+	        },
+	        type: "POST",
+	        dataType: "JSON",
+	        success: function(data) {
+	            var str = "";
+	            var Lists=data.dataList
+	             for(var k in Lists) {
+	            	   str += "<tr><td>" + Lists[k].userid + "</td><td>" + Lists[k].username + "</td><td>" + Lists[k].loginname + "</td><td>" 
+	  		            + Lists[k].phone + "</td><td>" +Lists[k].email + "</td><td>" 
+	  		             +Lists[k].userstatus + "</td><td>  <a class='delete'><span>删除</span></a>" +"</td></tr>";
+ 	  		          }  
+	            $("#nr1").html(str);
+	        }
+	    });
+    }
+    
+    function queryUser(){
+    	var condition=  document.getElementById("queryUser").value;
+    	$.ajax({
+            url: "${webPath}/user/finduserList",
+            data: {
+            	pageNum: 1,
+            	condition:condition
+            },
+            type: "POST",
+            dataType: "JSON",
+            success: function(data) {
+                var str = "";
+                var Lists=data.dataList
+                
+                 for(var k in Lists) {
+                	 str += "<tr><td>" + Lists[k].userid + "</td><td>" + Lists[k].username + "</td><td>" + Lists[k].loginname + "</td><td>" 
+	  		            + Lists[k].phone + "</td><td>" +Lists[k].email + "</td><td>" 
+	  		             +Lists[k].userstatus + "</td><td>  <a class='delete'><span>删除</span></a>" +"</td></tr>";
+                }  
+                $("#nr1").html(str);
+          
+                $('#page').jqPaginator({
+	                totalPages: data.page,
+	                visiblePages: data.pageNum,
+	                currentPage: 1,
+	                first: '<a class="first" href="javascript:void(0);">首页</a>',
+	                prev: '<a class="prev" href="javascript:void(0);">上一页</a>',
+	                next: '<a  class="next" href="javascript:void(0);">下一页</a>',
+	                last: '<a class="last" href="javascript:void(0);">末页</a>',
+	                page: '<a class="page" href="javascript:void(0);">{{page}}</a>',
+	                onPageChange: function (num) {
+	                	findPage1(num);
+	                }
+	            });
+            }
+        });
+    }
   </script>
 </head>
 <body>
   <div class="page mgt-user">
-    <%@ include file="header.jsp" %>
+	<div>
+  <!--include是静态引入  jsp:include是动态引入 -->
+  <%@ include file="header.jsp" %>
+<%--   <jsp:include page="header.jsp" flush="true" /> --%>
     </div>
     <div class="m-bread">
-      <p>首页 > 用户管理</p>
+      <style>
+		p{padding:0px; margin:0px;display: inline;}
+	</style>
+       <a href="javascript:void(0);" onclick="main()"><p>首页</p></a><p> /</p>  <a href="#"><p>用户管理 </p></a> 
     </div>
     <div class="box-1">
       <div class="m-title">
-        <i style="background-image: url(static/title-8.png);"></i>
+        <i style="background-image: url(../static/title-8.png);"></i>
         <a>用户管理</a>
         <div></div>
       </div>
       <div class="control-bar">
         <div class="m-search">
           <i></i>
-          <input type="text" name="" placeholder="请输入区域名称">
-          <button>查询</button>
+          <input type="text" name="" placeholder="请输入区域名称" id="queryUser">
+          <button onclick="queryUser()">查询</button>
         </div>
         <button class='m-icon-btn add'>
           <i></i>
@@ -60,144 +159,14 @@
               <th>操作</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>01</td>
-              <td>张筱雨</td>
-              <td>admin1</td>
-              <td>18829301090</td>
-              <td>1827347478@qq.com</td>
-              <td>区域名称区域名称1</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>02</td>
-              <td>张筱雨</td>
-              <td>admin1</td>
-              <td>18829301090</td>
-              <td>1827347478@qq.com</td>
-              <td>区域名称区域名称1</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>03</td>
-              <td>张筱雨</td>
-              <td>admin1</td>
-              <td>18829301090</td>
-              <td>1827347478@qq.com</td>
-              <td>区域名称区域名称1</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>04</td>
-              <td>张筱雨</td>
-              <td>admin1</td>
-              <td>18829301090</td>
-              <td>1827347478@qq.com</td>
-              <td>区域名称区域名称1</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>05</td>
-              <td>张筱雨</td>
-              <td>admin1</td>
-              <td>18829301090</td>
-              <td>1827347478@qq.com</td>
-              <td>区域名称区域名称1</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>06</td>
-              <td>张筱雨</td>
-              <td>admin1</td>
-              <td>18829301090</td>
-              <td>1827347478@qq.com</td>
-              <td>区域名称区域名称1</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>07</td>
-              <td>张筱雨</td>
-              <td>admin1</td>
-              <td>18829301090</td>
-              <td>1827347478@qq.com</td>
-              <td>区域名称区域名称1</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>08</td>
-              <td>张筱雨</td>
-              <td>admin1</td>
-              <td>18829301090</td>
-              <td>1827347478@qq.com</td>
-              <td>区域名称区域名称1</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>09</td>
-              <td>张筱雨</td>
-              <td>admin1</td>
-              <td>18829301090</td>
-              <td>1827347478@qq.com</td>
-              <td>区域名称区域名称1</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>张筱雨</td>
-              <td>admin1</td>
-              <td>18829301090</td>
-              <td>1827347478@qq.com</td>
-              <td>区域名称区域名称1</td>
-              <td>
-                <a class="edit"><span>编辑</span></a>
-                <a class="delete"><span>删除</span></a>
-              </td>
-            </tr>
+          <tbody  id="nr1">
            
           </tbody>
         </table>
       </div>
-      <div class="m-paging">
-        <div>
-          <a class="prev">上一页</a>
-          <a class="active">1</a>
-          <a>2</a>
-          <a>3</a>
-          <a>4</a>
-          <a>5</a>
-          <span>...</span>
-          <a>15</a>
-          <a class="next">下一页</a>
+        <div class="m-paging">
+        <div id="page"></div>
         </div>
-      </div>
     </div>
 
     <div id="p1" class="m-popup-bg popup-1">
@@ -274,10 +243,9 @@
         </div>
       </div>
     </div>
-
+ <%@ include file="userPWD.jsp" %>
   </div>
   <div class="sky-bg" id="particles-js"></div>
-  <script src="js/particles.min.js"></script>
-  <script src="js/app.js"></script>
+
 </body>
 </html>

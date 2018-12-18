@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ptlogie.mapper.ErrorMapper" >
+  <resultMap id="BaseResultMap" type="com.ptlogie.domain.Error" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="scenename" property="scenename" jdbcType="VARCHAR" />
+    <result column="scenetype" property="scenetype" jdbcType="INTEGER" />
+    <result column="alarmtime" property="alarmtime" jdbcType="TIMESTAMP" />
+    <result column="alarmdata" property="alarmdata" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="manco" property="manco" jdbcType="VARCHAR" />
+    <result column="equipmentId" property="equipmentid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, scenename, scenetype, alarmtime, alarmdata, status, type, manco, equipmentId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ptlogie.domain.ErrorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from error
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from error
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from error
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ptlogie.domain.ErrorExample" >
+    delete from error
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ptlogie.domain.Error" >
+    insert into error (id, scenename, scenetype, 
+      alarmtime, alarmdata, status, 
+      type, manco, equipmentId
+      )
+    values (#{id,jdbcType=INTEGER}, #{scenename,jdbcType=VARCHAR}, #{scenetype,jdbcType=INTEGER}, 
+      #{alarmtime,jdbcType=TIMESTAMP}, #{alarmdata,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{manco,jdbcType=VARCHAR}, #{equipmentid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ptlogie.domain.Error" >
+    insert into error
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="scenename != null" >
+        scenename,
+      </if>
+      <if test="scenetype != null" >
+        scenetype,
+      </if>
+      <if test="alarmtime != null" >
+        alarmtime,
+      </if>
+      <if test="alarmdata != null" >
+        alarmdata,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="manco != null" >
+        manco,
+      </if>
+      <if test="equipmentid != null" >
+        equipmentId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="scenename != null" >
+        #{scenename,jdbcType=VARCHAR},
+      </if>
+      <if test="scenetype != null" >
+        #{scenetype,jdbcType=INTEGER},
+      </if>
+      <if test="alarmtime != null" >
+        #{alarmtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmdata != null" >
+        #{alarmdata,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="manco != null" >
+        #{manco,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentid != null" >
+        #{equipmentid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ptlogie.domain.ErrorExample" resultType="java.lang.Integer" >
+    select count(*) from error
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update error
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenename != null" >
+        scenename = #{record.scenename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenetype != null" >
+        scenetype = #{record.scenetype,jdbcType=INTEGER},
+      </if>
+      <if test="record.alarmtime != null" >
+        alarmtime = #{record.alarmtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.alarmdata != null" >
+        alarmdata = #{record.alarmdata,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.manco != null" >
+        manco = #{record.manco,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentid != null" >
+        equipmentId = #{record.equipmentid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update error
+    set id = #{record.id,jdbcType=INTEGER},
+      scenename = #{record.scenename,jdbcType=VARCHAR},
+      scenetype = #{record.scenetype,jdbcType=INTEGER},
+      alarmtime = #{record.alarmtime,jdbcType=TIMESTAMP},
+      alarmdata = #{record.alarmdata,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      manco = #{record.manco,jdbcType=VARCHAR},
+      equipmentId = #{record.equipmentid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ptlogie.domain.Error" >
+    update error
+    <set >
+      <if test="scenename != null" >
+        scenename = #{scenename,jdbcType=VARCHAR},
+      </if>
+      <if test="scenetype != null" >
+        scenetype = #{scenetype,jdbcType=INTEGER},
+      </if>
+      <if test="alarmtime != null" >
+        alarmtime = #{alarmtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmdata != null" >
+        alarmdata = #{alarmdata,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="manco != null" >
+        manco = #{manco,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentid != null" >
+        equipmentId = #{equipmentid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ptlogie.domain.Error" >
+    update error
+    set scenename = #{scenename,jdbcType=VARCHAR},
+      scenetype = #{scenetype,jdbcType=INTEGER},
+      alarmtime = #{alarmtime,jdbcType=TIMESTAMP},
+      alarmdata = #{alarmdata,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      manco = #{manco,jdbcType=VARCHAR},
+      equipmentId = #{equipmentid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+      <select id="findDErrorsBy7Day" resultType="java.util.Map" >
+select IFNULL(t3.count1,0)t1,t3.date,  IFNULL(t4.count2,0)t2 from 
+(select count(*) count1,date(alarmtime) as date  from error where type=1 and datediff(now(),alarmtime)&lt;=6  group by  date order by date)t3 
+left join 
+(select count(*) count2,date(alarmtime) as date  from error where type=2 and datediff(now(),alarmtime)&lt;=6  group by  date order by date )t4 
+on t3.date=t4.date  order by t3.date desc;
+  </select>
+  
+  
+     <select id="alarmProportion" resultType="java.util.Map" >
+select  t3.sceneId,t3.sceneName,count(t4.id)as count from error t4 right join 
+(select t1.sceneId ,t1.sceneName,t2.equipmentId from 
+(select sceneId ,sceneName from scene)t1  left join (select sceneId ,equipmentId from equipment)t2 on t1.sceneId=t2.sceneId )t3 on t3.equipmentId=t4.equipmentId  group by t3.sceneId
+  </select>
+  
+  
+     <select id="findErrorList" resultMap="BaseResultMap" parameterType="java.util.Map">
+     select 
+    <include refid="Base_Column_List" />
+    from error
+    <if test="param.condition != null  " >
+      where   scenename like '%${param.condition}%' 
+    </if>
+   order by alarmtime desc  
+  <if test="param.start != null  " >
+        limit #{param.start}
+    </if>
+   <if test="param.pageSize != null  " >
+        ,#{param.pageSize} ;
+    </if>
+  </select>
+</mapper>

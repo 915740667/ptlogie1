@@ -7,10 +7,11 @@
   <title></title>
   <script type="text/javascript">
     $(function(){
-      mPopup();
-      mSelect();
-      mCheckbox();
-      mSwitch2();
+    searchType(1); 
+   mPopup(); 
+   mSelect(); 
+     mCheckbox(); 
+       mSwitch2(); 
       $(".control-bar .add").click(function(){
         $("#p1").show();
       })
@@ -20,18 +21,68 @@
 
       jeDate("#d1",{
         isinitVal:true,
-        format: 'YYYY-MM-DD'
+        format: 'YYYY-MM-DD',
+        donefun: function(obj){
+        //时间
+        var date=obj.val
+        var Type=document.getElementById("Type").value;
+        var AreaId="<%=session.getAttribute("AreaId")%>";
+        
+    /*     $.ajax({
+	        url: "${webPath}/subarea/searchAreaDataByTypeAndDateAndAreaId",
+	        data: {
+	        	sceneId: AreaId,
+	        	type:Type,
+	        	date:d1
+	        },
+	        type: "POST",
+	        dataType: "text",
+	        success: function(data) {
+	        	
+	        }
+	        });   */
+        
+        }   
       })
+      
       jeDate("#d2",{
         isinitVal:true,
         format: 'YYYY-MM-DD'
       })
+      
       jeDate("#d3",{
         isinitVal:true,
         format: 'YYYY-MM-DD'
       })
 
     })
+    
+    
+    //环境数据温湿度查询图像
+ 		function  searchType(Type){
+    	
+    	var AreaId="<%=session.getAttribute("AreaId")%>";
+    	//初始化类型
+    	var TypeData=document.getElementById("Type");
+    	TypeData.value=Type 
+    	//获取时间 
+    	var d1=document.getElementById("d1").value;
+    	
+  /* 	$.ajax({
+	        url: "${webPath}/subarea/searchAreaDataByTypeAndDateAndAreaId",
+	        data: {
+	        	sceneId: AreaId,
+	        	type:Type,
+	        	date:d1
+	        },
+	        type: "POST",
+	        dataType: "text",
+	        success: function(data) {
+	        	
+	        }
+	        });  */
+	
+    }
   </script>
 </head>
 <body>
@@ -40,7 +91,10 @@
    <%@ include file="header.jsp" %>
  </div>
     <div class="m-bread">
-      <p>首页 > 区域信息</p>
+      <style>
+		p{padding:0px; margin:0px;display: inline;}
+	</style>
+      <a href="javascript:void(0);" onclick="main()"><p>首页</p></a><p> /</p>  <a href="#"><p>区域信息 </p></a> 
     </div>
     <div class="box-1">
       <div class="item">
@@ -81,93 +135,33 @@
     </div>
     <div class="box-2">
       <div class="m-title">
-        <i style="background-image: url(static/title-5.png);"></i>
+        <i style="background-image: url(../static/title-5.png);"></i>
         <a>环境数据</a>
         <div></div>
       </div>
       <div class="left">
         <div class="filter">
-          <div class="m-switch-2">
-            <a class="active">温度</a>
-            <a>湿度</a>
+          <div class="m-switch-2" id="m-switch-2">
+            <a class="active" onclick="searchType(1)" >温度</a>
+            <a onclick="searchType(2)" >湿度</a>
+            <input type="hidden" id="Type"> 
           </div>
-          <div class="m-select-qujian">
-            <div class="m-select">
-              <label>
-                <div>0</div>
-                <ul>
-                  <li>0</li>
-                  <li>1</li>
-                  <li>2</li>
-                  <li>3</li>
-                  <li>4</li>
-                  <li>5</li>
-                  <li>6</li>
-                  <li>7</li>
-                  <li>8</li>
-                  <li>9</li>
-                  <li>10</li>
-                  <li>11</li>
-                  <li>12</li>
-                  <li>13</li>
-                  <li>14</li>
-                  <li>15</li>
-                  <li>16</li>
-                  <li>17</li>
-                  <li>18</li>
-                  <li>19</li>
-                  <li>20</li>
-                  <li>21</li>
-                  <li>22</li>
-                  <li>23</li>
-                  <li>24</li>
-                </ul>
-                <input type="hidden" name="">
-              </label>
-            </div>
-            <span>至</span>
-            <div class="m-select">
-              <label>
-                <div>24</div>
-                <ul>
-                  <li>0</li>
-                  <li>1</li>
-                  <li>2</li>
-                  <li>3</li>
-                  <li>4</li>
-                  <li>5</li>
-                  <li>6</li>
-                  <li>7</li>
-                  <li>8</li>
-                  <li>9</li>
-                  <li>10</li>
-                  <li>11</li>
-                  <li>12</li>
-                  <li>13</li>
-                  <li>14</li>
-                  <li>15</li>
-                  <li>16</li>
-                  <li>17</li>
-                  <li>18</li>
-                  <li>19</li>
-                  <li>20</li>
-                  <li>21</li>
-                  <li>22</li>
-                  <li>23</li>
-                  <li>24</li>
-                </ul>
-                <input type="hidden" name="">
-              </label>
-            </div>
-          </div>
+      
           <div class="m-input date">
             <label>
               <input id="d1" type="text" name="" placeholder="选择日期">
             </label>
           </div>
         </div>
+        
+           
         <div id="c1" class="chart-1"></div>
         <script type="text/javascript">
+        $(function(){
+        	
+        });
+    
+      
           var data1 = [
             {
               name:"设备名称1",
@@ -210,6 +204,8 @@
               data:[35,33,68,28,48,78,18,38,28,28,58,28,31,34,65,23,45,76,12,34,21,25,54,21,21]
             }
           ];
+          
+          
           var qujian = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24];
           var color1 = ["#ffea00","#ffa800","#f88552","#ff2323","#acd056","#20d3e8","#00adff","#2832ff","#f000ff","#644aff"];
           var series1 = [];
@@ -235,6 +231,14 @@
               tooltip: {
               trigger: 'axis'
             },
+            grid:{
+                left:'5%',
+                right:'0',
+                bottom:'15%',
+                containLabel:true
+            },
+
+            
             legend: {
               icon: 'rect',
               itemWidth: 14,
@@ -288,6 +292,31 @@
                 }
               },
             },
+            //工具栏支持数据展示缩放
+            toolbox: {
+            	left: "300px",
+            	top: "90%",
+            	bottom: "3%",
+            	right: "15%",
+            	containLabel: true,
+                feature: {
+                   dataView:{  //数据展示
+                	   show:true,
+                	 /*   textColor:'#100' ,
+                	   textareaColor:'#c23531' */
+                   },
+                   restore:{ //还原
+                	   show:false,
+                   },
+                   dataZoom:{ // 截取部分数据展示
+                	   show:true
+                   },
+                   saveAsImage:{
+                	   show:true
+                   }
+                   
+                }
+            },
             series: series1
           };
           c1.setOption(option1);
@@ -308,6 +337,7 @@
               </tr>
             </thead>
             <tbody>
+            <c:forEach items="${equipmentList}" var="eqp">
               <tr>
                 <td>01</td>
                 <td>设备名称1</td>
@@ -315,113 +345,21 @@
                 <td>数据内容1</td>
                 <td>2018-10-22</td>
                 <td>告警内容1</td>
-                <td><a class="to-view"><span>查看</span></a></td>
+                <td><a class="to-view" onclick="toshow('1')"><span>查看</span></a></td>
               </tr>
-              <tr>
-                <td>01</td>
-                <td>设备名称1</td>
-                <td>类型1</td>
-                <td>数据内容1</td>
-                <td>2018-10-22</td>
-                <td>告警内容1</td>
-                <td><a class="to-view"><span>查看</span></a></td>
-              </tr>
-              <tr>
-                <td>01</td>
-                <td>设备名称1</td>
-                <td>类型1</td>
-                <td>数据内容1</td>
-                <td>2018-10-22</td>
-                <td>告警内容1</td>
-                <td><a class="to-view"><span>查看</span></a></td>
-              </tr>
-              <tr>
-                <td>01</td>
-                <td>设备名称1</td>
-                <td>类型1</td>
-                <td>数据内容1</td>
-                <td>2018-10-22</td>
-                <td>告警内容1</td>
-                <td><a class="to-view"><span>查看</span></a></td>
-              </tr>
-              <tr>
-                <td>01</td>
-                <td>设备名称1</td>
-                <td>类型1</td>
-                <td>数据内容1</td>
-                <td>2018-10-22</td>
-                <td>告警内容1</td>
-                <td><a class="to-view"><span>查看</span></a></td>
-              </tr>
-              <tr>
-                <td>01</td>
-                <td>设备名称1</td>
-                <td>类型1</td>
-                <td>数据内容1</td>
-                <td>2018-10-22</td>
-                <td>告警内容1</td>
-                <td><a class="to-view"><span>查看</span></a></td>
-              </tr>
-              <tr>
-                <td>01</td>
-                <td>设备名称1</td>
-                <td>类型1</td>
-                <td>数据内容1</td>
-                <td>2018-10-22</td>
-                <td>告警内容1</td>
-                <td><a class="to-view"><span>查看</span></a></td>
-              </tr>
-              <tr>
-                <td>01</td>
-                <td>设备名称1</td>
-                <td>类型1</td>
-                <td>数据内容1</td>
-                <td>2018-10-22</td>
-                <td>告警内容1</td>
-                <td><a class="to-view"><span>查看</span></a></td>
-              </tr>
-              <tr>
-                <td>01</td>
-                <td>设备名称1</td>
-                <td>类型1</td>
-                <td>数据内容1</td>
-                <td>2018-10-22</td>
-                <td>告警内容1</td>
-                <td><a class="to-view"><span>查看</span></a></td>
-              </tr>
-              <tr>
-                <td>01</td>
-                <td>设备名称1</td>
-                <td>类型1</td>
-                <td>数据内容1</td>
-                <td>2018-10-22</td>
-                <td>告警内容1</td>
-                <td><a class="to-view"><span>查看</span></a></td>
-              </tr>
-             
-
+			</c:forEach>
             </tbody>
           </table>
         </div>
         <div class="m-paging">
-          <div>
-            <a class="prev">上一页</a>
-            <a class="active">1</a>
-            <a>2</a>
-            <a>3</a>
-            <a>4</a>
-            <a>5</a>
-            <span>...</span>
-            <a>15</a>
-            <a class="next">下一页</a>
-          </div>
+        <div id="page1"></div>
         </div>
       </div>
     </div>
 
     <div class="box-3">
       <div class="m-title">
-        <i style="background-image: url(static/title-6.png);"></i>
+        <i style="background-image: url(../static/title-6.png);"></i>
         <a>安全数据</a>
         <div></div>
       </div>
@@ -438,6 +376,7 @@
             </tr>
           </thead>
           <tbody>
+             <c:forEach items="${equipmentList}" var="eqp">
             <tr>
               <td>01</td>
               <td>设备名称1</td>
@@ -446,100 +385,19 @@
               <td>2018-10-22</td>
               <td>告警内容1</td>
             </tr>
-            <tr>
-              <td>02</td>
-              <td>设备名称1</td>
-              <td>类型1</td>
-              <td>数据内容1</td>
-              <td>2018-10-22</td>
-              <td>告警内容1</td>
-            </tr>
-            <tr>
-              <td>03</td>
-              <td>设备名称1</td>
-              <td>类型1</td>
-              <td>数据内容1</td>
-              <td>2018-10-22</td>
-              <td>告警内容1</td>
-            </tr>
-            <tr>
-              <td>04</td>
-              <td>设备名称1</td>
-              <td>类型1</td>
-              <td>数据内容1</td>
-              <td>2018-10-22</td>
-              <td>告警内容1</td>
-            </tr>
-            <tr>
-              <td>05</td>
-              <td>设备名称1</td>
-              <td>类型1</td>
-              <td>数据内容1</td>
-              <td>2018-10-22</td>
-              <td>告警内容1</td>
-            </tr>
-            <tr>
-              <td>06</td>
-              <td>设备名称1</td>
-              <td>类型1</td>
-              <td>数据内容1</td>
-              <td>2018-10-22</td>
-              <td>告警内容1</td>
-            </tr>
-            <tr>
-              <td>07</td>
-              <td>设备名称1</td>
-              <td>类型1</td>
-              <td>数据内容1</td>
-              <td>2018-10-22</td>
-              <td>告警内容1</td>
-            </tr>
-            <tr>
-              <td>08</td>
-              <td>设备名称1</td>
-              <td>类型1</td>
-              <td>数据内容1</td>
-              <td>2018-10-22</td>
-              <td>告警内容1</td>
-            </tr>
-            <tr>
-              <td>09</td>
-              <td>设备名称1</td>
-              <td>类型1</td>
-              <td>数据内容1</td>
-              <td>2018-10-22</td>
-              <td>告警内容1</td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>设备名称1</td>
-              <td>类型1</td>
-              <td>数据内容1</td>
-              <td>2018-10-22</td>
-              <td>告警内容1</td>
-            </tr>
+      </c:forEach>
 
           </tbody>
         </table>
       </div>
-      <div class="m-paging">
-        <div>
-          <a class="prev">上一页</a>
-          <a class="active">1</a>
-          <a>2</a>
-          <a>3</a>
-          <a>4</a>
-          <a>5</a>
-          <span>...</span>
-          <a>15</a>
-          <a class="next">下一页</a>
+     <div class="m-paging">
+        <div id="page4"></div>
         </div>
-      </div>
     </div>
 
     <div class="box-4">
       <div class="m-title">
-        <i style="background-image: url(static/title-1.png);"></i>
+        <i style="background-image: url(../static/title-1.png);"></i>
         <a>设备信息</a>
         <div></div>
       </div>
@@ -585,32 +443,21 @@
               </tr>
             </thead>
             <tbody>
+            <c:forEach items="${equipmentList}" var="eqp">
               <tr>
-                <td>01</td>
-                <td>设备名称1</td>
-                <td>设备类型1</td>
-                <td>供电状态1</td>
-                <td>在线状态1</td>
-                <td>无</td>
+                <td>${eqp.equipmentid }</td>
+                <td>${eqp.equipmentname}</td>
+                <td>${eqp.equipmenttype}</td>
+                <td>${eqp.eletric}</td>
+                <td>${eqp.workstatus}</td>
+                <td>${eqp.alarmstatus}</td>
               </tr>
-              <tr>
-                <td>01</td>
-                <td>设备名称1</td>
-                <td>设备类型1</td>
-                <td>供电状态1</td>
-                <td>在线状态1</td>
-                <td class="red">数据告警</td>
-              </tr>
-              <tr>
-                <td>01</td>
-                <td>设备名称1</td>
-                <td>设备类型1</td>
-                <td>供电状态1</td>
-                <td>在线状态1</td>
-                <td>无</td>
-              </tr>
+           </c:forEach> 
             </tbody>
           </table>
+        </div>
+         <div class="m-paging">
+        <div id="page2"></div>
         </div>
       </div>
       <div class="right">
@@ -652,38 +499,27 @@
               </tr>
             </thead>
             <tbody>
+       <c:forEach items="${alarmList}" var="alarm">
               <tr>
-                <td>01</td>
-                <td>区域名称1</td>
-                <td>报警数值1</td>
-                <td>告警类别1</td>
-                <td>告警时间1</td>
-                <td>联系人1</td>
+                <td>${alarm.id}</td>
+                <td>${alarm.equipmentid}</td>
+                <td>${alarm.datavalue}</td>
+                <td>${alarm.type}</td>
+                <td>new Date()</td>
+                <td>${alarm.message}</td>
               </tr>
-              <tr>
-                <td>02</td>
-                <td>区域名称1</td>
-                <td>报警数值1</td>
-                <td>告警类别1</td>
-                <td>告警时间1</td>
-                <td>联系人1</td>
-              </tr>
-              <tr>
-                <td>03</td>
-                <td>区域名称1</td>
-                <td>报警数值1</td>
-                <td>告警类别1</td>
-                <td>告警时间1</td>
-                <td>联系人1</td>
-              </tr>
+       </c:forEach>
             </tbody>
           </table>
+        </div>
+     <div class="m-paging">
+        <div id="page3"></div>
         </div>
       </div>
     </div>
     <div class="box-5">
       <div class="m-title">
-        <i style="background-image: url(static/title-7.png);"></i>
+        <i style="background-image: url(../static/title-7.png);"></i>
         <a>监控报告</a>
         <div></div>
       </div>
@@ -717,10 +553,9 @@
         <button>生成报告</button>
       </div>
     </div>
-
+ <%@ include file="userPWD.jsp" %>
   </div>
   <div class="sky-bg" id="particles-js"></div>
-  <script src="js/particles.min.js"></script>
-  <script src="js/app.js"></script>
+
 </body>
 </html>

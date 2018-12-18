@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ptlogie.mapper.EquimentlogMapper" >
+  <resultMap id="BaseResultMap" type="com.ptlogie.domain.Equimentlog" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="equipmentId" property="equipmentid" jdbcType="INTEGER" />
+    <result column="gatewayId" property="gatewayid" jdbcType="INTEGER" />
+    <result column="relayId" property="relayid" jdbcType="INTEGER" />
+    <result column="operationname" property="operationname" jdbcType="VARCHAR" />
+    <result column="equimentname" property="equimentname" jdbcType="VARCHAR" />
+    <result column="operationtime" property="operationtime" jdbcType="TIMESTAMP" />
+    <result column="operation" property="operation" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Id, equipmentId, gatewayId, relayId, operationname, equimentname, operationtime, 
+    operation
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ptlogie.domain.EquimentlogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from equimentlog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from equimentlog
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from equimentlog
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ptlogie.domain.EquimentlogExample" >
+    delete from equimentlog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ptlogie.domain.Equimentlog" >
+    insert into equimentlog (Id, equipmentId, gatewayId, 
+      relayId, operationname, equimentname, 
+      operationtime, operation)
+    values (#{id,jdbcType=INTEGER}, #{equipmentid,jdbcType=INTEGER}, #{gatewayid,jdbcType=INTEGER}, 
+      #{relayid,jdbcType=INTEGER}, #{operationname,jdbcType=VARCHAR}, #{equimentname,jdbcType=VARCHAR}, 
+      #{operationtime,jdbcType=TIMESTAMP}, #{operation,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ptlogie.domain.Equimentlog" >
+    insert into equimentlog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="equipmentid != null" >
+        equipmentId,
+      </if>
+      <if test="gatewayid != null" >
+        gatewayId,
+      </if>
+      <if test="relayid != null" >
+        relayId,
+      </if>
+      <if test="operationname != null" >
+        operationname,
+      </if>
+      <if test="equimentname != null" >
+        equimentname,
+      </if>
+      <if test="operationtime != null" >
+        operationtime,
+      </if>
+      <if test="operation != null" >
+        operation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentid != null" >
+        #{equipmentid,jdbcType=INTEGER},
+      </if>
+      <if test="gatewayid != null" >
+        #{gatewayid,jdbcType=INTEGER},
+      </if>
+      <if test="relayid != null" >
+        #{relayid,jdbcType=INTEGER},
+      </if>
+      <if test="operationname != null" >
+        #{operationname,jdbcType=VARCHAR},
+      </if>
+      <if test="equimentname != null" >
+        #{equimentname,jdbcType=VARCHAR},
+      </if>
+      <if test="operationtime != null" >
+        #{operationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operation != null" >
+        #{operation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ptlogie.domain.EquimentlogExample" resultType="java.lang.Integer" >
+    select count(*) from equimentlog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update equimentlog
+    <set >
+      <if test="record.id != null" >
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmentid != null" >
+        equipmentId = #{record.equipmentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gatewayid != null" >
+        gatewayId = #{record.gatewayid,jdbcType=INTEGER},
+      </if>
+      <if test="record.relayid != null" >
+        relayId = #{record.relayid,jdbcType=INTEGER},
+      </if>
+      <if test="record.operationname != null" >
+        operationname = #{record.operationname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equimentname != null" >
+        equimentname = #{record.equimentname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationtime != null" >
+        operationtime = #{record.operationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.operation != null" >
+        operation = #{record.operation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update equimentlog
+    set Id = #{record.id,jdbcType=INTEGER},
+      equipmentId = #{record.equipmentid,jdbcType=INTEGER},
+      gatewayId = #{record.gatewayid,jdbcType=INTEGER},
+      relayId = #{record.relayid,jdbcType=INTEGER},
+      operationname = #{record.operationname,jdbcType=VARCHAR},
+      equimentname = #{record.equimentname,jdbcType=VARCHAR},
+      operationtime = #{record.operationtime,jdbcType=TIMESTAMP},
+      operation = #{record.operation,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ptlogie.domain.Equimentlog" >
+    update equimentlog
+    <set >
+      <if test="equipmentid != null" >
+        equipmentId = #{equipmentid,jdbcType=INTEGER},
+      </if>
+      <if test="gatewayid != null" >
+        gatewayId = #{gatewayid,jdbcType=INTEGER},
+      </if>
+      <if test="relayid != null" >
+        relayId = #{relayid,jdbcType=INTEGER},
+      </if>
+      <if test="operationname != null" >
+        operationname = #{operationname,jdbcType=VARCHAR},
+      </if>
+      <if test="equimentname != null" >
+        equimentname = #{equimentname,jdbcType=VARCHAR},
+      </if>
+      <if test="operationtime != null" >
+        operationtime = #{operationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operation != null" >
+        operation = #{operation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ptlogie.domain.Equimentlog" >
+    update equimentlog
+    set equipmentId = #{equipmentid,jdbcType=INTEGER},
+      gatewayId = #{gatewayid,jdbcType=INTEGER},
+      relayId = #{relayid,jdbcType=INTEGER},
+      operationname = #{operationname,jdbcType=VARCHAR},
+      equimentname = #{equimentname,jdbcType=VARCHAR},
+      operationtime = #{operationtime,jdbcType=TIMESTAMP},
+      operation = #{operation,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
