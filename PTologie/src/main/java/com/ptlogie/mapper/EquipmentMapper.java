@@ -31,9 +31,8 @@ public interface EquipmentMapper {
 
     int updateByPrimaryKey(Equipment record);
     
-    List<Equipment> findByPage(@Param("startObj")int startObj, @Param("pageSize")int pageSize);
 
    	List<Equipment> findOnline();
 
-	List<Equipment> findDeviceList( @Param("param")Map param);
+	List<Map<String,Object>> findDeviceList( @Param("param")Map param);
 }

@@ -1,5 +1,4 @@
-particlesJS('particles-js',
-  
+var particlesJS=('particles-js',
   {
   "particles": {
     "number": {
@@ -7,7 +6,7 @@ particlesJS('particles-js',
       "density": {
         "enable": true, //启用粒子的稀密程度
         "value_area": 300 //区域散布密度大小
-      }
+      },
     },
     "color": {
       "value": "#075ba9" //原子的颜色
@@ -110,5 +109,4 @@ particlesJS('particles-js',
   },
   "retina_detect": true
 }
-
 );

@@ -45,7 +45,9 @@
         <property name="mapperLocations" value="classpath*:com.ptlogie.mapper/*Mapper.xml"></property>
 	</bean>
 	<bean class="com.ptlogie.domain.Page" id ="page"></bean>
-	
+	<bean class="com.ptlogie.domain.Page" id ="page1"></bean>
+	<bean class="com.ptlogie.domain.Page" id ="page2"></bean>
+	<bean class="com.ptlogie.domain.Page" id ="page3"></bean>
 	   <!--4 自动扫描对象关系映射 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--指定会话工厂，如果当前上下文中只定义了一个则该属性可省去 -->

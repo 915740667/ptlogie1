@@ -54,7 +54,7 @@
             <div></div>
           </div>
           <div class="box">
-      			<div  id="dataInfo">
+      			<div  id="areaInfo">
             </div>
           </div>
         </div>
@@ -276,7 +276,7 @@
  /*  setInterval("dataInfo()",2000);   */
 	 eqpOnline(); 
 	  dataInfo();  
-  	 sensorCount(); 
+  	sensorCount(); 
 	 areaData();   
 	  dataCountByDay();   
 	  dataCountByMonth();
@@ -361,7 +361,7 @@
 		            	    +Lists[k].articleName+"</span></li><li><i>一周告警次数</i><span class='num'>"+Lists[k].errorCount+"</span></li></div><a class='ft' href='#' onclick='areaInfo("+Lists[k].sceneId+")'> "+"<span>监控信息</span><i>"+"</i></a></div>";
 		            }  
 		         
-		             $("#dataInfo").html(str);  
+		             $("#areaInfo").html(str);  
 	           
 		        }
 		    });
@@ -408,7 +408,7 @@
         }
           
   
- 		
+ 		//数据信息
  		 function findPage1(d1){
  	    	$.ajax({
  	    		url: "${webPath}/dataInfo/findDataList",
@@ -418,12 +418,15 @@
 		        type: "POST",
 		        dataType: "JSON",
 		        success: function(data) {
-		        	console.log(data.dataList)
 		            var str = "";
 		            var Lists=data.dataList
 		             for(var k in Lists) {
-		            	    str += "<tr><td>"+ Lists[k].id +"</td><td>" + Lists[k].sceneName + "</td><td>" + Lists[k].equipmentName + "</td><td>" 
-		  		            + Lists[k].humidity + "</td><td>" +Lists[k].updatetime + "</td></tr>";
+		            	 var dateTime=Lists[k].updatetime
+		            	
+		            	    str += "<tr><td>"+ Lists[k].id +"</td><td>" + Lists[k].sceneName + "</td><td>" + Lists[k].equipmentName + "</td><td>温度:" 
+		  		            + Lists[k].temperature +"℃"+"  湿度:"+Lists[k].humidity  +"RH"+"</td><td>"+dateTime+"</td></tr>";
+		  		            
+		            	    
 		            }  
 		            $("#abc").html(str);
  		        }

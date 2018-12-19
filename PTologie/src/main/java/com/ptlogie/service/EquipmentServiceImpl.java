@@ -1,6 +1,7 @@
 package com.ptlogie.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,17 +11,14 @@ import org.springframework.stereotype.Service;
 
 import com.ptlogie.domain.Equipment;
 import com.ptlogie.mapper.EquipmentMapper;
+import com.ptlogie.util.DateUtils;
 
 @Service
 public class EquipmentServiceImpl implements equipmentService {
 	@Autowired
 	private EquipmentMapper emapper;
 
-	@Override
-	public List<Equipment> findByPage(int pageNum, int pageSize) {
-		// TODO Auto-generated method stub
-		return emapper.findByPage(pageNum,pageSize);
-	}
+
 
 	@Override
 	public List<Equipment> findAll() {
@@ -35,7 +33,7 @@ public class EquipmentServiceImpl implements equipmentService {
 	}
 
 	@Override
-	public List<Equipment> findDeviceList(Map map) {
+	public List<Map<String, Object>> findDeviceList(Map map) {
 		String equipmentType=	(String) map.get("type");
 		List pList=new ArrayList<>();
 		Map temp = new HashMap<>();
@@ -57,8 +55,17 @@ public class EquipmentServiceImpl implements equipmentService {
 		temp.put("condition",  map.get("condition"));
 		temp.put("start",  map.get("start"));
 		temp.put("pageSize",  map.get("pageSize"));
+		List<Map<String, Object>> list=	 emapper.findDeviceList(temp);
+		List tempList=new ArrayList<>();
+		for (Map equipment : list) {
+			if(equipment.get("createtime")!=null){
+				equipment.put("createtime", DateUtils.dateFormat((Date)equipment.get("createtime")));
+				tempList.add(equipment);
+			}
+			
+		}
 		// TODO Auto-generated method stub
-		return emapper.findDeviceList(temp);
+		return tempList;
 	}
 
 	@Override

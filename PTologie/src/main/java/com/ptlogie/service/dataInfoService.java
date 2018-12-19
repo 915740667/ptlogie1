@@ -9,5 +9,5 @@ public interface dataInfoService {
 	public List<Map<String, Object>> getDataToDay();
 	public int getCountToDay() ;
 	public int getCountToMonth() ;
-	public List<Map<String,Object>> findDataList(Map map);
+	public List<Map<String, Object>> findDataList(Map map);
 }

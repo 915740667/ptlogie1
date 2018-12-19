@@ -472,17 +472,10 @@
     where workstatus = 1
   </select>
   
-   <!-- 分页查询 -->
-    <select id="findByPage" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from equipment
-    where 1=1 
-  order by equipmentId desc    limit ${startObj},${pageSize} ;
-  </select>
-    <select id="findDeviceList" resultMap="BaseResultMap" parameterType="java.util.Map">
+
+    <select id="findDeviceList" resultType="java.util.Map" parameterType="java.util.Map">
      select 
-    <include refid="Base_Column_List" />
+    *
     from equipment
     where 
     equipmentType in

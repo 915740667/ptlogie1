@@ -36,7 +36,6 @@ public interface ErrorMapper {
 
 	List<Map<String, Object>> alarmProportion();
 
-	List<Map<String, Object>> findByPage(@Param("startObj") int startObj, @Param("pageSize") int pageSize);
 
 	List<Error> findErrorList(@Param("param")Map param);
 

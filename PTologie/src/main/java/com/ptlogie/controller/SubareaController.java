@@ -44,7 +44,7 @@ public class SubareaController {
 	   public String  subareaList(Model model,HttpServletRequest request){
 		Map map1 = new HashMap<>();
 		map1.put("type", "3");
-		List<Equipment> gateList=eqpService.findDeviceList(map1);
+		List<Map<String, Object>> gateList=eqpService.findDeviceList(map1);
 		request.setAttribute("gateList", gateList);
 		return "/museum/mgt-area";
 	   }

@@ -37,9 +37,16 @@ public interface SceneMapper {
 
 	List<Scene> findAll();
 
-	List<Map<String, Object>> findByPage(@Param("startObj")int startObj, @Param("pageSize")int pageSize);
 
 	List<Map<String, Object>> findAreaList(@Param("param")Map map1);
 
 	List<Map<String, Object>> searchAreaDataByTypeAndDateAndAreaId(@Param("sceneId")int sceneId,@Param("type") int type, @Param("date")Date date);
+	
+	/**
+	 * @Title: getSceneListByCompanyid   
+	 * @Description: 根据公司id查询该公司下的所有区域   
+	 * @param companyid
+	 * @return
+	 */
+	List<Scene> getSceneListByCompanyid(int companyid);
 }

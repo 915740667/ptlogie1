@@ -13,9 +13,15 @@ public interface subareaService {
 		// TODO Auto-generated method stub
 	public List<Scene> findAll();
 	
-	public List<Map<String, Object>> findByPage(int startObj, int pageSize);
 	public List<Map<String, Object>> findAreaList(Map map1);
 	public void addObj(Scene scene);
 	public void deleteById(Integer sceneId);
 	public List<Map<String,Object>> searchAreaDataByTypeAndDateAndAreaId(int sceneId, int type, Date date);
+	/**
+	 * @Title: getSceneListByCompanyid   
+	 * @Description: 根据公司id查询该公司下的所有区域   
+	 * @param companyid
+	 * @return
+	 */
+	public List<Scene> getSceneListByCompanyid(int companyid);
 }

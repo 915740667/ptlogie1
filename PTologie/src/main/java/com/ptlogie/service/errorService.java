@@ -12,6 +12,5 @@ public interface errorService {
 	public List<Map<String, Object>> findErrorsBy7Day() ;
 	public List<Map<String, Object>> alarmProportion() ;
 	public List<com.ptlogie.domain.Error> findAll();
-	public List<Map<String, Object>> findByPage(int i, int pageSize);
 	public List<com.ptlogie.domain.Error> findErrorList(Map map1);
 }

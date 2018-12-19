@@ -6,13 +6,13 @@ import java.util.Map;
 import com.ptlogie.domain.Equipment;
 
 public interface equipmentService {
-	public List<Equipment> findByPage(int pageNum, int pageSize);
+	
 
 	public List<Equipment> findAll();
 
 	public List<Equipment> findOnline();
 
-	public List<Equipment> findDeviceList(Map map);
+	public List<Map<String,Object>> findDeviceList(Map map);
 
 	public void addObj(Equipment equipment);
 

@@ -26,7 +26,7 @@ public class ErrorServiceImpl implements errorService {
 		List list= new ArrayList<>();
 		for (int i = 0; i < Dlist.size(); i++) {
 			Map mapd=Dlist.get(i);
-			Date dated=(Date) mapd.get("date");
+			Date dated=(Date) mapd.get("click_date");
 			String date1=new SimpleDateFormat("yyyy-MM-dd").format(dated);
 			for (int j = 0; j <7; j++) {
 				Calendar ca = Calendar.getInstance();//得到一个Calendar的实例 
@@ -37,8 +37,8 @@ public class ErrorServiceImpl implements errorService {
 					Map<String, Object>mapn=new HashMap<>();
 					int p = j+1;
 					mapn.put("x", "第"+p+"天");
-					Long p1= (Long) mapd.get("t1");
-					Long p2=(Long) mapd.get("t2");
+					Long p1= (Long) mapd.get("count1");
+					Long p2=(Long) mapd.get("count2");
 					Long[] n ={p1.longValue(),p2.longValue()};
 					mapn.put("val",n);
 					list.add(mapn);
@@ -76,12 +76,6 @@ public class ErrorServiceImpl implements errorService {
 		return list;
 	}
 
-	@Override
-	public List<Map<String, Object>> findByPage(int startObj, int pageSize) {
-		// TODO Auto-generated method stub
-		List<Map<String, Object>> list=mapper.findByPage(startObj,pageSize);
-		return list;
-	}
 
 	@Override
 	public List<com.ptlogie.domain.Error> findErrorList(Map map1) {

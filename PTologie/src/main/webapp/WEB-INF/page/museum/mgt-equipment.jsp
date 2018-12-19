@@ -98,8 +98,8 @@
 	            var str = "";
 		            var eqpList=data.dataList
 		             for(var k in eqpList) {
-	  		            str += "<tr><td>" + eqpList[k].equipmentid + "</td><td>" + eqpList[k].equipmentname + "</td><td>" + eqpList[k].snno + "</td><td>" 
-	  		            + eqpList[k].equipmenttype + "</td><td>" +eqpList[k].sceneid + "</td><td>" 
+	  		            str += "<tr><td>" + eqpList[k].equipmentId + "</td><td>" + eqpList[k].equipmentName + "</td><td>" + eqpList[k].snno + "</td><td>" 
+	  		            + eqpList[k].equipmentType + "</td><td>" +eqpList[k].sceneId + "</td><td>" 
 	  		            +eqpList[k].alarmstatus + "</td><td>" +eqpList[k].workstatus + "</td><td>" +eqpList[k].electric + "v"+"</td><td>" +eqpList[k].content + "</td><td>  <a class='delete'  onclick='deleteById("+eqpList[k].equipmentid+")'><span>删除</span></a>" +"</td></tr>";
 	  		          }  
 		            $("#nr1").html(str);
@@ -122,7 +122,7 @@
 		            var str1 = "";
 		            var relayList=data.dataList
 		             for(var k in relayList) {
-		               str1 += "<tr><td>" + relayList[k].equipmentid + "</td><td>" + relayList[k].equipmentname + "</td><td>" + relayList[k].macno + "</td><td>" 
+		               str1 += "<tr><td>" + relayList[k].equipmentId + "</td><td>" + relayList[k].equipmentName + "</td><td>" + relayList[k].macno + "</td><td>" 
 	  		           +relayList[k].content  + "</td><td>  <a class='delete'   onclick='deleteById("+relayList[k].equipmentid+")'><span>删除</span></a>" +"</td></tr>";
 	  		          
 		            }  
@@ -144,12 +144,14 @@
 	        type: "POST",
 	        dataType: "JSON",
 	        success: function(data) {
+	        	
 	            var str3 = "";
 	            var gateList=data.dataList
+	            
 	             for(var k in gateList) {
-  		            str3+= "<tr><td>" + gateList[k].equipmentid + "</td><td>" + gateList[k].equipmentname + "</td><td>" + gateList[k].equipmentname + "</td><td>" 
-  		            + gateList[k].chipsn + "</td><td>" +gateList[k].hostname + "</td><td>" 
-  		            +gateList[k].chipsn + "</td><td>" +gateList[k].gps + "</td><td>" +gateList[k].workstatus + "</td><td>" +gateList[k].createtime  + "</td><td>" +gateList[k].content + "</td><td>  <a class='delete'  onclick='deleteById("+gateList[k].equipmentid+")'><span>删除</span></a>" +"</td></tr>";
+  		            str3+= "<tr><td>" + gateList[k].equipmentId + "</td><td>" + gateList[k].equipmentName + "</td><td>" + gateList[k].equipmentName + "</td><td>" 
+  		            + gateList[k].period + "</td><td>" +gateList[k].hostName + "</td><td>" 
+  		            +gateList[k].chipSn + "</td><td>" +gateList[k].gps + "</td><td>" +gateList[k].workstatus + "</td><td>" +gateList[k].createtime  + "</td><td>" +gateList[k].content + "</td><td>  <a class='delete'  onclick='deleteById("+gateList[k].equipmentid+")'><span>删除</span></a>" +"</td></tr>";
   		          }  
 	            $("#nr3").html(str3);
 	        }
@@ -595,13 +597,13 @@
           <div class="m-input">
             <span>设备名称：</span>
             <label>
-              <input type="text" name="" placeholder="请输入区域名称" id="name2">
+              <input type="text" name="" placeholder="请输入设备名称" id="name2">
             </label>
           </div>
           <div class="m-input">
             <span>设备MAC：</span>
             <label>
-              <input type="text" name="" placeholder="请输入区域名称" id="mac2">
+              <input type="text" name="" placeholder="请输入设备MAC" id="mac2">
             </label>
           </div>
           <div class="m-textarea">
@@ -627,19 +629,19 @@
           <div class="m-input">
             <span>设备名称：</span>
             <label>
-              <input type="text" name="" placeholder="请输入区域名称" id="name3">
+              <input type="text" name="" placeholder="请输入设备名称" id="name3">
             </label>
           </div>
           <div class="m-input">
             <span>设备MAC：</span>
             <label>
-              <input type="text" name="" placeholder="请输入区域名称" id="mac3">
+              <input type="text" name="" placeholder="请输入设备MAC" id="mac3">
             </label>
           </div>
           <div class="m-input">
             <span>GPS信息：</span>
             <label>
-              <input type="text" name="" placeholder="请输入区域名称" id="gps3">
+              <input type="text" name="" placeholder="请输入GPS信息" id="gps3">
             </label>
           </div>
           <div class="m-textarea">

@@ -38,5 +38,5 @@ public interface DatainfoMapper {
 
 	int getCountToMonth();
 
-	List<Map<String,Object>> findDataList(@Param("param")Map map);
+	List<Map<String, Object>> findDataList(@Param("param")Map map);
 }

@@ -48,7 +48,7 @@
  			window.location.href="${webPath}/equipment/equipmentList";
 			}
 			function user(){
- 		window.location.href="${webPath}/user/userList";
+			window.location.href = "${webPath}/user/userList?companyid=${sessionScope.loginUser.companyid}";
  		
 			}
 			function error(){

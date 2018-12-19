@@ -55,11 +55,11 @@ public class EquipmentController {
 	Map map = new HashMap<>();
 	Map map1 = new HashMap<>();
 	map1.put("type", "1,4,5");
-	List<Equipment> deviceList1=eqs.findDeviceList(map1);
+	List<Map<String, Object>> deviceList1=eqs.findDeviceList(map1);
 	map1.put("type", "2");
-	List<Equipment> relayList1=eqs.findDeviceList(map1);
+	List<Map<String, Object>> relayList1=eqs.findDeviceList(map1);
 	map1.put("type", "3");
-	List<Equipment> gateList1=eqs.findDeviceList(map1);
+	List<Map<String, Object>> gateList1=eqs.findDeviceList(map1);
 
 	//获取每种设备页数
 	page.setTotalCounts( deviceList1.size());
@@ -83,7 +83,7 @@ public class EquipmentController {
 		Map map1 = new HashMap<>();
 		map1.put("type", equipmentType);
 		map1.put("condition", condition);
-		List<Equipment> condList=eqs.findDeviceList(map1);
+		List<Map<String, Object>> condList=eqs.findDeviceList(map1);
 		
 		page.setTotalCounts( condList.size());
 		dataMap.put("page",page.getTotalPages()); 
@@ -93,7 +93,7 @@ public class EquipmentController {
 		map.put("pageSize", page.getPageSize());
 		map.put("type", equipmentType);
 		map.put("condition", condition);
-		List<Equipment> dataList=eqs.findDeviceList(map);
+		List<Map<String, Object>> dataList=eqs.findDeviceList(map);
 		dataMap.put("dataList", dataList);
 		
 		return dataMap;

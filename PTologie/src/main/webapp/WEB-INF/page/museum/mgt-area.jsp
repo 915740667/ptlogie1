@@ -122,7 +122,7 @@
 				sceneTypes+=sceneType[k].value+","
 			}
 		}
-	    console.log(sceneTypes)
+
 	 	$.ajax({
 	        url: "${webPath}/subarea/addArea",
 	        data: {
@@ -139,6 +139,7 @@
 	        success: function(data) {
 	        	if(data=="ok"){
 	        		alert("success")
+	        			
 		 	     	   $("#p1").hide();
 	        		location.reload();
 	        	}if(data=="error"){
@@ -160,6 +161,7 @@
 
     
     function deleteById(id){
+  
     	$.ajax({
 	        url: "${webPath}/subarea/deleteById",
 	        data: {

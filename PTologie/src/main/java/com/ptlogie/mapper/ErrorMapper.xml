@@ -274,11 +274,18 @@
   </update>
   
       <select id="findDErrorsBy7Day" resultType="java.util.Map" >
-select IFNULL(t3.count1,0)t1,t3.date,  IFNULL(t4.count2,0)t2 from 
-(select count(*) count1,date(alarmtime) as date  from error where type=1 and datediff(now(),alarmtime)&lt;=6  group by  date order by date)t3 
+  select  t1.click_date ,t1.count1,ifnull(t2.count2,0)as count2 from 
+(select a.click_date,ifnull(b.count1,0)as count1 from ( 
+SELECT curdate() as click_date 
+union all SELECT date_sub(curdate(), interval 1 day) as click_date 
+union all SELECT date_sub(curdate(), interval 2 day) as click_date 
+union all SELECT date_sub(curdate(), interval 3 day) as click_date 
+union all SELECT date_sub(curdate(), interval 4 day) as click_date 
+union all SELECT date_sub(curdate(), interval 5 day) as click_date 
+union all SELECT date_sub(curdate(), interval 6 day) as click_date ) a 
+left join ( select date(alarmtime) as datetime, count(*) as count1 from error  where type=1 group by date(alarmtime) ) b on a.click_date = b.datetime)t1
 left join 
-(select count(*) count2,date(alarmtime) as date  from error where type=2 and datediff(now(),alarmtime)&lt;=6  group by  date order by date )t4 
-on t3.date=t4.date  order by t3.date desc;
+( select date(alarmtime) as datetime, count(*) as count2 from error  where type=2 group by date(alarmtime) )t2  on t1.click_date=t2.datetime
   </select>
   
   

@@ -33,12 +33,7 @@ public class SubareaServiceImpl implements subareaService {
 		return list;
 	}
 
-	@Override
-	public List<Map<String, Object>> findByPage(int startObj, int pageSize) {
-		List<Map<String, Object>> list=mapper.findByPage(startObj,pageSize);
-		// TODO Auto-generated method stub
-		return list;
-	}
+
 
 	@Override
 	public List<Map<String, Object>> findAreaList(Map map1) {
@@ -75,7 +70,10 @@ public class SubareaServiceImpl implements subareaService {
 
 
 
-
+	@Override
+	public List<Scene> getSceneListByCompanyid(int companyid) {
+		return mapper.getSceneListByCompanyid(companyid);
+	}
 
 	
 

@@ -255,10 +255,7 @@ group by t5.sceneId
      <select id="findAll" resultType="com.ptlogie.domain.Scene"  >
   		select * from scene 
   </select>
-     <select id="findByPage" resultType="java.util.Map"  >
-  		select count(t4.sceneId) ct,t3.* from equipment t4 join 
-(select t2.gateName,t1.* from gateway t2 right join (select * from scene)t1 on t1.gatewayId=t2.gatewayId)t3 on t4.sceneId=t3.sceneId group by t3.sceneId
-  </select>
+
   
   
   <select id="findAreaList" resultType="java.util.Map" parameterType="java.util.Map">
@@ -275,5 +272,21 @@ on t1.sceneId=t2.sceneId
    <if test="param.start != null  " >
         ,#{param.pageSize} ;
     </if>
+  </select>
+  
+    <!-- 根据公司id查询该公司下的所有区域 -->
+  <select id="getSceneListByCompanyid" resultMap="BaseResultMap" parameterType="int">
+  	select 
+  		sceneId,
+	    gatewayId,
+	    sceneName,
+	    sceneType,
+	    location,
+	    remark,
+	    articleName
+	from
+		scene
+	where
+		1 = 1 
   </select>
 </mapper>
